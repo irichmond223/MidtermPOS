@@ -1,0 +1,15 @@
+Item: Potatoes        Produce         1lb, Russels                                                                     0.79                                                                            
+Item: Onions          Produce         1lb, White                                                                       0.9                                                                             
+Item: Cabbage         Produce         1lb Green                                                                        2.07                                                                            
+Item: Tomato          Produce         1lb Roma                                                                         0.29                                                                            
+Item: Cucumber        Produce         1ct Fresh                                                                        0.5                                                                             
+Item: Turkey          Meat            1lb It's natural ground turkey 93% lean.                                         4.49                                                                            
+Item: Chicken         Meat            1lb It's fresh 100% natural boneless and skinless chicken breast.                7.05                                                                            
+Item: Bacon           Meat            16oz slow smoked and hand-trimmed from the finest cuts of pork.                  7.05                                                                            
+Item: Sausage         Meat            14oz Handcrafted with natural spices and only the finest cuts of meat.           2.5                                                                             
+Item: Pork            Meat            1lb Boneless Loin Chops, 3 chops per pack.                                       6.14                                                                            
+Item: Yogurt          Dairy           5oz tarts with simple, all natural, non-GMO ingredients.                         1.49                                                                            
+Item: Cream Cheese    Dairy           8oz Cream Cheese always starts with fresh milk and real cream.                   1.67                                                                            
+Item: Milk            Dairy           1/2 gal Enjoy organic 2% reduced fat milk from cows raised without antibiotics.  2.99                                                                            
+Item: Coffee Creamer  Dairy           28 fl oz creamer with the rich flavors of cinnamon streusel.                     4.99                                                                            
+Item: Cheese Slices   Dairy           8oz Distinctive for its orange rind and mild flavor.                             3.7                                                                             
