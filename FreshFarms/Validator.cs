@@ -48,5 +48,28 @@ namespace FreshFarms
             return item;
 
         }
+
+        public static double ValidateDouble()
+        {
+            double validDouble = 0;
+            bool valid;
+
+            do
+            {
+                valid = true;
+                try
+                {
+                    validDouble = double.Parse(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.Write("Please enter a valid value: ");
+                    valid = false;
+                }
+            } while (!valid);
+
+            return validDouble;
+        }
     }
 }
