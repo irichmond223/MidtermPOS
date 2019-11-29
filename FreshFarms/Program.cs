@@ -45,44 +45,56 @@ namespace FreshFarms
             Console.WriteLine("Welcome to the Fresh Farms Store!");
             Console.WriteLine("What category are you interested in? 1. Produce, 2. Meat, 3. Dairy");
 
-            //for (int i = 0; i < productList.Count; i++)
-            //{
-            //    Console.WriteLine($"{i + 1}. {productList[i].Name}");
-            //    tw.WriteLine($"{i + 1}. {productList[i].Name}");
-            //}
-
-            // CategoryList();
             string stringUserInput = Console.ReadLine();
             int intUserInput = Validator.ValidateNum(stringUserInput, productList);
-
 
             foreach (Product c in productList)
             {
                 if (c.Category == categoryCode[intUserInput])
                 {
                     byCategory.Add(c);
-                    Console.WriteLine(c.Name);
+                    //Console.WriteLine(c.Name);
+                    Console.WriteLine($"Item: {c.Name,-15} {c.Category,-15} {c.Description,-70} {c.Price,-70}");
                 }
-
             }
 
-            Console.WriteLine("Which item would you like to purchase?");
+            Console.WriteLine("Which item would you like to purchase? type: (1), (2), (3), (4), or (5)");
             string stringUserInputTwo = Console.ReadLine();
-            int intUserInputTwo= Validator.ValidateNum(stringUserInput, productList);
-            //foreach (Product movie in productList)
-            //{
-            //    if (movie.Name == categoryCode[intUserInputTwo])
-            //    {
-            //        Console.WriteLine(movie.Name);
-            //    }
-            //}
-
-            foreach (Product n in byCategory)
+            int intUserInputTwo= Validator.ValidateIndex(stringUserInputTwo, productList);
+           
+            int itemOne = 1, itemTwo = 2, itemThree = 3, itemFour = 4, itemFive = 5;
+            foreach (Product c in productList)
             {
-                Console.WriteLine(n.Name);
+                if ( c.Category == categoryCode[intUserInput])
+                {
+                    if (intUserInputTwo == 1)
+                    {
+                        itemOne++; 
+                    }
+                    else if (intUserInputTwo == 2)
+                    {
+                        itemTwo++;
+                    }
+                    else if (intUserInputTwo == 3)
+                    {
+                        itemThree++;
+                    }
+                    else if (intUserInputTwo == 4)
+                    {
+                        itemFour++;
+                    }
+                    else if (intUserInputTwo == 5)
+                    {
+                        itemFive++;
+                    }
+                }
             }
 
-            StreamReader sr = new StreamReader(@"C:\Users\ilona\source\repos\FreshFarms\FreshFarms\Product.txt");
+            Console.WriteLine($"Name: {byCategory[intUserInputTwo - 1].Name}");
+            Console.WriteLine($"Price: ${byCategory[intUserInputTwo-1].Price}");
+            Console.WriteLine($"Product Information\n {byCategory[intUserInputTwo-1].Description}");
+
+            StreamReader sr = new StreamReader(@"C:..\..\Product.txt");
             List<string> tempList = new List<string>();
 
             string line = "";
@@ -98,8 +110,6 @@ namespace FreshFarms
             }
 
             sr.Close();
-
-
         }
 
         public static string Input()
@@ -122,24 +132,28 @@ namespace FreshFarms
 
 //Validator = format
 
-//Order
+//CalculatePayment
 
-
-//Allow the user to   choose a quantity for the item ordered.Give the user a line total(item price * quantity). VALIDATION - REGEX (VALIDATOR METHOD)
+//Allow the user to choose a quantity for the item ordered.Give the user a line total(item price * quantity). VALIDATION - REGEX (VALIDATOR METHOD)
 //Either through the menu or a separate question, allow them to   re-display the menu and to complete the purchase. HOW TO REDISPLAY SELECTED?
 //Give the subtotal, sales tax, and grand total. 
 
-//PaymentDetails
+//PaymentValidator
 
 //Ask for payment type—cash, credit, or check 
 //For cash, ask for amount tendered and provide change. CALCULATE CHANGE AND VALIDATE
 //For check, get the check number. VALIDATE
 //For credit, get the credit card number, expiration, and CVV.  VALIDATE
 
+//Order
 
 //At the end, display a receipt with all items ordered, subtotal, grand total, and appropriate payment info. 
-//Return to the original menu for a new order. (Hint: you’ll want an array or ArrayList to keep track of what’s been ordered!) Optional enhancements: 
-//(Moderate) Include an option to add to the product list, which then outputs to the product file. POSSIBLY REMOVE as well?
+//Return to the original menu for a new order. (Hint: you’ll want an array or ArrayList to keep track of what’s been ordered!) 
+//Include an option to add to the product list, which then outputs to the product file
+
+
+//Optional enhancements: 
+//(Moderate) . POSSIBLY REMOVE as well?
 
 
 //(Hard) Create a full GUI.
