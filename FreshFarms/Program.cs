@@ -28,80 +28,70 @@ namespace FreshFarms
                 {new Product("Pork", categoryCode[1], "1lb Boneless Loin Chops, 3 chops per pack.", 6.14) },
                 {new Product("Yogurt", categoryCode[2], "5oz tarts with simple, all natural, non-GMO ingredients.", 1.49) },
                 {new Product("Cream Cheese", categoryCode[2], "8oz Cream Cheese always starts with fresh milk and real cream.", 1.67) },
-                {new Product("Milk", categoryCode[2], "1/2 gal Enjoy organic 2% reduced fat milk from cows raised without antibiotics.", 2.99) },
+                {new Product("Milk", categoryCode[2], "1/2 gal Enjoy organic 2% reduced fat milk.", 2.99) },
                 {new Product("Coffee Creamer", categoryCode[2], "28 fl oz creamer with the rich flavors of cinnamon streusel.", 4.99) },
                 {new Product("Cheese Slices", categoryCode[2], "8oz Distinctive for its orange rind and mild flavor.", 3.7) },
 
             };
 
+            //List for ordered items in order to track what has been ordered 
+            List<Product> orderedProducts = new List<Product>();
+            
+            //List to save all items within a category
             List<Product> byCategory = new List<Product>();
 
-            //Calling method from Product class to write to text file
+            
+            //Calling method from Product class to send to text file
             Product newProduct = new Product();
             newProduct.ProductToFile(productList);
 
+            //Sorting list by name
             productList.Sort((a, b) => a.Name.CompareTo(b.Name));
 
-            Console.WriteLine("Welcome to the Fresh Farms Store!");
-            Console.WriteLine("What category are you interested in? 1. Produce, 2. Meat, 3. Dairy");
-
-            string stringUserInput = Console.ReadLine();
-            int intUserInput = Validator.ValidateNum(stringUserInput, productList);
-
-            foreach (Product c in productList)
-            {
-                if (c.Category == categoryCode[intUserInput])
+            Console.WriteLine($"{"Welcome to the Fresh Farms grocery store!", +75}");
+            bool repeat = true;
+            while (repeat)
                 {
-                    byCategory.Add(c);
-                    //Console.WriteLine(c.Name);
-                    Console.WriteLine($"Item: {c.Name,-15} {c.Category,-15} {c.Description,-70} {c.Price,-70}");
-                }
-            }
 
-            Console.WriteLine("Which item would you like to purchase? type: (1), (2), (3), (4), or (5)");
-            string stringUserInputTwo = Console.ReadLine();
-            int intUserInputTwo= Validator.ValidateIndex(stringUserInputTwo, productList);
-           
-            int itemOne = 1, itemTwo = 2, itemThree = 3, itemFour = 4, itemFive = 5;
-            foreach (Product c in productList)
-            {
-                if ( c.Category == categoryCode[intUserInput])
+                Order.GroceryList(productList);
+
+                Console.WriteLine();
+
+               
+
+                Order.ProductSelection(productList, orderedProducts);
+
+                Console.WriteLine();
+                
+
+                //Checking for ordered products to ensure the products selected have been saved
+                int itemTwo = 0;
+                foreach (Product b in orderedProducts)
                 {
-                    if (intUserInputTwo == 1)
-                    {
-                        itemOne++; 
-                    }
-                    else if (intUserInputTwo == 2)
-                    {
-                        itemTwo++;
-                    }
-                    else if (intUserInputTwo == 3)
-                    {
-                        itemThree++;
-                    }
-                    else if (intUserInputTwo == 4)
-                    {
-                        itemFour++;
-                    }
-                    else if (intUserInputTwo == 5)
-                    {
-                        itemFive++;
-                    }
+                    Console.WriteLine($"Product: {b.Name}");
+                    Console.WriteLine($"Price: ${b.Price}");
+                    itemTwo++;
                 }
+                Console.WriteLine();
+                CalculatePayment payment = new CalculatePayment();
+                CalculatePayment.DisplayMenu();
+
+                Console.WriteLine();
+                repeat = Order.Repeater();
+
+                
             }
+            Product.AddProduct(productList);
 
-            Console.WriteLine($"Name: {byCategory[intUserInputTwo - 1].Name}");
-            Console.WriteLine($"Price: ${byCategory[intUserInputTwo-1].Price}");
-            Console.WriteLine($"Product Information\n {byCategory[intUserInputTwo-1].Description}");
-
-            StreamReader sr = new StreamReader(@"C:..\..\Product.txt");
+            StreamReader sr = new StreamReader(@"C:..\..\..\Product.txt");
             List<string> tempList = new List<string>();
 
             string line = "";
 
+
             while (line != null)
             {
-                //some coding
+
                 line = sr.ReadLine();
                 if (line != null)
                 {
@@ -111,13 +101,6 @@ namespace FreshFarms
 
             sr.Close();
         }
-
-        public static string Input()
-        {
-            string input = Console.ReadLine();
-            return input;
-        }
-
 
     }
 }
