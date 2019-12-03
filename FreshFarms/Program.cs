@@ -76,7 +76,8 @@ namespace FreshFarms
                 CalculatePayment payment = new CalculatePayment();
                 CalculatePayment.DisplayMenu();
 
-                PaymentValidation.PaymentOptions();
+                //Placeholder double received to store return of PaymentOptions
+                double received = PaymentValidation.PaymentOptions();
 
                 Console.WriteLine();
                 repeat = Order.Repeater();
