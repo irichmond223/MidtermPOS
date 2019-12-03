@@ -10,7 +10,7 @@ namespace FreshFarms
         //takes in the total payment
         //displays total payment, amount paid, change
         //no return
-        public static void CashPayment(double totalCost)
+        public static double CashPayment(double totalCost)
         {
             double received, change;
 
@@ -32,13 +32,15 @@ namespace FreshFarms
             Console.WriteLine($"Amount owed: {totalCost}");
             Console.WriteLine($"Amount paid: {received}");
             Console.WriteLine($"Change: {change}");
+
+            return received;
         }
 
         //takes in total cost
         //validates check info through regex
         //displays total cost, amount paid, change
         //no return
-        public static void CheckPayment(double totalCost)
+        public static double CheckPayment(double totalCost)
         {
             double received, change;
 
@@ -72,6 +74,8 @@ namespace FreshFarms
             Console.WriteLine($"Amount owed: {totalCost}");
             Console.WriteLine($"Amount paid: {received}");
             Console.WriteLine($"Change: {change}");
+
+            return received;
         }
 
         //takes in total cost
@@ -79,7 +83,7 @@ namespace FreshFarms
         //asks for cash back
         //displays total cost, cash back, amount paid
         //no return
-        public static void CardPayment(double totalCost)
+        public static double CardPayment(double totalCost)
         {
             string cashBackSelect;
             double received, cashBack = 0.00;
@@ -113,6 +117,8 @@ namespace FreshFarms
             Console.WriteLine($"Amount owed: {totalCost}");
             Console.WriteLine($"Cash back: {cashBack}");
             Console.WriteLine($"Amount paid: {received}");
+
+            return received;
         }
 
         //takes in a string for a regex expression
@@ -142,9 +148,10 @@ namespace FreshFarms
             return input;
         }
 
-        public static void PaymentOptions()
+        public static double PaymentOptions()
         {
             string selection;
+            double amountPaid = 0.00;
             bool repeat;
 
             Console.WriteLine("Available payment Options:");
@@ -162,19 +169,19 @@ namespace FreshFarms
                 if (selection == "1")
                 {
                     //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
-                    CashPayment(123.45);
+                    amountPaid = CashPayment(123.45);
                     repeat = false;
                 }
                 else if (selection == "2")
                 {
                     //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
-                    CheckPayment(123.45);
+                    amountPaid = CheckPayment(123.45);
                     repeat = false;
                 }
                 else if (selection == "3")
                 {
                     //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
-                    CardPayment(123.45);
+                    amountPaid = CardPayment(123.45);
                     repeat = false;
                 }
                 else
@@ -183,6 +190,15 @@ namespace FreshFarms
                     repeat = true;
                 }
             } while (repeat);
+
+            return amountPaid;
+        }
+
+        //Subtracts input total cost from input amount received and returns change
+        public static double GetChange (double totalCost, double amountReceived)
+        {
+            double change = Math.Round(amountReceived - totalCost, 2);
+            return change;
         }
     }
 }
