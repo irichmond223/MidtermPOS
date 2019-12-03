@@ -15,11 +15,19 @@ namespace FreshFarms
             double received, change;
 
             Console.WriteLine("Cash payment option selected.");
-
             Console.Write("Please enter cash amount received: ");
-            received = Math.Round(Validator.ValidateDouble(), 2);
 
-            change = Math.Round(received - totalCost);
+            do
+            {
+                received = Math.Round(CheckPositiveDouble(Validator.ValidateDouble()), 2);
+                if (received < totalCost)
+                {
+                    Console.Write("Value lower than total cost. Please ask for a larger payment: ");
+                }
+            } while (received < totalCost);
+           
+
+            change = Math.Round(received - totalCost, 2);
 
             Console.WriteLine($"Amount owed: {totalCost}");
             Console.WriteLine($"Amount paid: {received}");
@@ -37,7 +45,15 @@ namespace FreshFarms
             Console.WriteLine("Check payment option selected.");
 
             Console.Write("Please enter cash amount written: ");
-            received = Math.Round(Validator.ValidateDouble(), 2);
+
+            do
+            {
+                received = Math.Round(CheckPositiveDouble(Validator.ValidateDouble()), 2);
+                if (received < totalCost)
+                {
+                    Console.Write("Value lower than total cost. Please ask for a larger payment: ");
+                }
+            } while (received < totalCost);
 
             //9 digits, first digit only from 0-3
             Console.Write("Please enter the routing number (9 digits): ");
@@ -51,7 +67,7 @@ namespace FreshFarms
             Console.Write("Please enter the check number (4 digits): ");
             RegexValidate(@"(^[0-9]{4}$)");
 
-            change = Math.Round(received - totalCost);
+            change = Math.Round(received - totalCost, 2);
 
             Console.WriteLine($"Amount owed: {totalCost}");
             Console.WriteLine($"Amount paid: {received}");
@@ -89,7 +105,7 @@ namespace FreshFarms
             if (cashBackSelect == "y")
             {
                 Console.Write("Please write cash back amount: ");
-                cashBack = Validator.ValidateDouble();
+                cashBack = CheckPositiveDouble(Validator.ValidateDouble());
             }
 
             received = totalCost + cashBack;
@@ -113,6 +129,60 @@ namespace FreshFarms
             }
 
             return input;
+        }
+
+        public static double CheckPositiveDouble(double input)
+        {
+            while (input < 0)
+            {
+                Console.Write("Please only use positve values: ");
+                input = Validator.ValidateDouble();
+            }
+
+            return input;
+        }
+
+        public static void PaymentOptions()
+        {
+            string selection;
+            bool repeat;
+
+            Console.WriteLine("Available payment Options:");
+            Console.WriteLine();
+            Console.WriteLine("1. Cash");
+            Console.WriteLine("2. Check");
+            Console.WriteLine("3. Card");
+            Console.WriteLine();
+            Console.Write("Please select a payment option: ");
+
+            do
+            {
+                selection = Console.ReadLine();
+
+                if (selection == "1")
+                {
+                    //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
+                    CashPayment(123.45);
+                    repeat = false;
+                }
+                else if (selection == "2")
+                {
+                    //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
+                    CheckPayment(123.45);
+                    repeat = false;
+                }
+                else if (selection == "3")
+                {
+                    //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
+                    CardPayment(123.45);
+                    repeat = false;
+                }
+                else
+                {
+                    Console.Write("Invalid option. Please select the number of an option listed: ");
+                    repeat = true;
+                }
+            } while (repeat);
         }
     }
 }
