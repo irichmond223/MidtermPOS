@@ -17,20 +17,20 @@ namespace FreshFarms
             List<Product> productList = new List<Product>()
             {
                 {new Product("Potatoes", categoryCode[0], "1lb, Russels", 0.79) },
-                {new Product("Onions", categoryCode[0], "1lb, White", 0.90) },
+                {new Product("Onions", categoryCode[0], "1lb, White", 0.99) },
                 {new Product("Cabbage", categoryCode[0], "1lb Green", 2.07) },
                 {new Product("Tomato", categoryCode[0], "1lb Roma", 0.29) },
-                {new Product("Cucumber", categoryCode[0], "1ct Fresh", 0.50) },
+                {new Product("Cucumber", categoryCode[0], "1ct Fresh", 0.54) },
                 {new Product("Turkey", categoryCode[1], "1lb It's natural ground turkey 93% lean.", 4.49) },
                 {new Product("Chicken", categoryCode[1], "1lb It's fresh 100% natural boneless and skinless chicken breast.", 7.05) },
                 {new Product("Bacon", categoryCode[1], "16oz slow smoked and hand-trimmed from the finest cuts of pork.", 7.05) },
-                {new Product("Sausage", categoryCode[1], "14oz Handcrafted with natural spices and only the finest cuts of meat.", 2.50) },
+                {new Product("Sausage", categoryCode[1], "14oz Handcrafted with natural spices and only the finest cuts of meat.", 2.53) },
                 {new Product("Pork", categoryCode[1], "1lb Boneless Loin Chops, 3 chops per pack.", 6.14) },
                 {new Product("Yogurt", categoryCode[2], "5oz tarts with simple, all natural, non-GMO ingredients.", 1.49) },
                 {new Product("Cream Cheese", categoryCode[2], "8oz Cream Cheese always starts with fresh milk and real cream.", 1.67) },
                 {new Product("Milk", categoryCode[2], "1/2 gal Enjoy organic 2% reduced fat milk.", 2.99) },
                 {new Product("Coffee Creamer", categoryCode[2], "28 fl oz creamer with the rich flavors of cinnamon streusel.", 4.99) },
-                {new Product("Cheese Slices", categoryCode[2], "8oz Distinctive for its orange rind and mild flavor.", 3.7) },
+                {new Product("Cheese Slices", categoryCode[2], "8oz Distinctive for its orange rind and mild flavor.", 3.99) },
 
             };
 
