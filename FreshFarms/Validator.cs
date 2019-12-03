@@ -47,6 +47,56 @@ namespace FreshFarms
             return item;
 
         }
+        //method for Quantity, only allows an int 1-50
+        public static int ValidateNum(string input)
+        {
+            int inputToInt = 0;
+            bool repeat = true;
+
+            while (repeat)
+            {
+                try
+                {
+                    inputToInt = int.Parse(input);
+
+                    if (inputToInt > 0 && inputToInt <= 50)
+                    {
+                        repeat = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Quantity must be between 1 and 50.");
+                        input = Console.ReadLine();
+                        repeat = true;
+                    }
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("Quantity must be a number.");
+                    input = Console.ReadLine();
+                    repeat = true;
+                }
+                catch (NullReferenceException ex)
+                {
+                    Console.WriteLine("Quantity must be between 1 and 50.");
+                    input = Console.ReadLine();
+                    repeat = true;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    Console.WriteLine("Quantity must be between 1 and 50.");
+                    input = Console.ReadLine();
+                    repeat = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Sorry, something went wrong. Please enter a quantity.");
+                    input = Console.ReadLine();
+                    repeat = true;
+                }
+            }
+            return inputToInt;
+        }
 
         public static int ValidateIndex(string input, List<Product> listInput)
         {

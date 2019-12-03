@@ -7,24 +7,23 @@ namespace FreshFarms
     class CalculatePayment
     {
         //takes in users input for quantity
-        public static int Quantity(int quantity)
+        public static int GetQuantity(int amount)
         {
-            return quantity;
+            return amount;
         }
-        //calculates all items selected and multiplies by quantity, returns double Subtotal
-        public static double SubTotal(double itemPrice, int quantity)
+        public static double GetSubTotal(double itemPrice, int quantity)
         {
             double subTotal = Math.Round(itemPrice * quantity, 2);
             return subTotal;
         }
         //takes in subtotal, returns sales tax amount
-        public static double SalesTax(double subTotal)
+        public static double GetSalesTax(double subTotal)
         {
             double salesTax = Math.Round(0.06 * subTotal, 2);
             return salesTax;
         }
         //grand total
-        public static double GrandTotal(double subTotal, double salesTax)
+        public static double GetGrandTotal(double subTotal, double salesTax)
         {
             double grandTotal = Math.Round(subTotal + salesTax, 2);
             return grandTotal;
@@ -39,20 +38,20 @@ namespace FreshFarms
 
             while (repeat)
             {
-                Console.WriteLine("Enter a qauntity.");
-                int customersQuantity = int.Parse(Console.ReadLine());
-                int quantity = Quantity(customersQuantity);
-                Console.WriteLine($"Quantity: {Quantity(customersQuantity)}");
+                Console.WriteLine("Enter Quantity.");
+                string input = Console.ReadLine();
+                int quantity = CalculatePayment.GetQuantity(Validator.ValidateNum(input));
+                Console.WriteLine($"Quantity: {quantity}");
 
                 Console.WriteLine("Item price?");
                 double itemPrice = double.Parse(Console.ReadLine());
-                double subTotal = Math.Round(SubTotal(itemPrice, quantity), 2);
-                Console.WriteLine($"Subtotal: {0:$}{SubTotal(itemPrice, quantity)}");
+                double subTotal = Math.Round(CalculatePayment.GetSubTotal(itemPrice, quantity), 2);
+                Console.WriteLine($"Subtotal: {0:$}{CalculatePayment.GetSubTotal(itemPrice, quantity)}");
 
-                double salesTax = Math.Round(SalesTax(subTotal), 2);
-                Console.WriteLine($"Sales tax: {0:$}{SalesTax(subTotal)}");
+                double salesTax = Math.Round(CalculatePayment.GetSalesTax(subTotal), 2);
+                Console.WriteLine($"Sales tax: {0:$}{CalculatePayment.GetSalesTax(subTotal)}");
 
-                Console.WriteLine($"Grand total: {0:$}{GrandTotal(subTotal, salesTax)}");
+                Console.WriteLine($"Grand total: {0:$}{CalculatePayment.GetGrandTotal(subTotal, salesTax)}");
 
                 Console.WriteLine("Would you like to see the display again? [Y/N]");
                 string seeDisplayAgain = Console.ReadLine();
