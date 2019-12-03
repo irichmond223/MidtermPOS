@@ -36,11 +36,11 @@ namespace FreshFarms
 
             //List for ordered items in order to track what has been ordered 
             List<Product> orderedProducts = new List<Product>();
-            
+
             //List to save all items within a category
             List<Product> byCategory = new List<Product>();
 
-            
+
             //Calling method from Product class to send to text file
             Product newProduct = new Product();
             newProduct.ProductToFile(productList);
@@ -48,21 +48,21 @@ namespace FreshFarms
             //Sorting list by name
             productList.Sort((a, b) => a.Name.CompareTo(b.Name));
 
-            Console.WriteLine($"{"Welcome to the Fresh Farms grocery store!", +75}");
+            Console.WriteLine($"{"Welcome to the Fresh Farms grocery store!",+75}");
             bool repeat = true;
             while (repeat)
-                {
+            {
 
                 Order.GroceryList(productList);
 
                 Console.WriteLine();
 
-               
+
 
                 Order.ProductSelection(productList, orderedProducts);
 
                 Console.WriteLine();
-                
+
 
                 //Checking for ordered products to ensure the products selected have been saved
                 int itemTwo = 0;
@@ -79,7 +79,7 @@ namespace FreshFarms
                 Console.WriteLine();
                 repeat = Order.Repeater();
 
-                
+
             }
             Product.AddProduct(productList);
 

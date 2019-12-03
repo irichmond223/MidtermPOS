@@ -19,7 +19,7 @@ namespace FreshFarms
 
                 try
                 {
-                    
+
                     item = int.Parse(input) - 1;
                     test = listInput[item].Name;
                     again = false;
@@ -61,7 +61,7 @@ namespace FreshFarms
                 try
                 {
 
-                    item = int.Parse(input) ;
+                    item = int.Parse(input);
                     test = listInput[item].Name;
                     again = false;
                 }
@@ -111,5 +111,39 @@ namespace FreshFarms
 
             return validDouble;
         }
+
+        public static string TestValidity()
+
+        {
+            string stringUserInput = "";
+            do
+            {
+                try
+                {
+                    stringUserInput = Console.ReadLine().ToLower();
+
+                    if (string.IsNullOrEmpty(stringUserInput))
+                    {
+                        Console.WriteLine("Empty input, please try again.");
+                    }
+                }
+                catch (FormatException) //Used when the user typed in in a wrong format
+                {
+                    Console.WriteLine("Please use the correct format. Please try again.");
+                }
+                catch (NullReferenceException)
+                {
+                    Console.WriteLine("Please use the correct format. Please try again.");
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("An error has occurred. Please try again.");
+                }
+
+            } while (string.IsNullOrEmpty(stringUserInput));
+
+            return stringUserInput;
+        }
+
     }
 }

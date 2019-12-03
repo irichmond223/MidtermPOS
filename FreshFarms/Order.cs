@@ -25,10 +25,10 @@ namespace FreshFarms
             Console.WriteLine("Do you wish to add another order? (y) or (n)");
             while (repeat)
             {
-                string reply = Console.ReadLine();
+                string reply = Console.ReadLine().ToLower();
                 if (string.IsNullOrEmpty(reply))
                 {
-                    Console.WriteLine("Please enter a yes or no");
+                    Console.WriteLine("Please enter y or n");
                 }
                 else if (Regex.IsMatch(reply.ToLower(), @"(y)|(yes)"))
                 {
