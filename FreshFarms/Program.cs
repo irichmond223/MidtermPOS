@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Globalization;
 
 namespace FreshFarms
 {
@@ -41,6 +42,11 @@ namespace FreshFarms
             List<Product> byCategory = new List<Product>();
 
 
+            //Holds the inputed item quantities
+            List<int> quantities = new List<int>();
+
+            
+
             //Calling method from Product class to send to text file
             ProductPOS newProduct = new ProductPOS();
             newProduct.ProductToFile(productList);
@@ -62,6 +68,10 @@ namespace FreshFarms
 
                 Order.ProductSelection(productList, orderedProducts);
 
+                //Adds user input to a quantities list
+                Console.Write("Please enter a quantity: ");
+                quantities.Add(Validator.ValidateNum(Console.ReadLine()));
+
                 Console.WriteLine();
 
 
@@ -74,8 +84,10 @@ namespace FreshFarms
                     itemTwo++;
                 }
                 Console.WriteLine();
-                CalculatePayment payment = new CalculatePayment();
-                CalculatePayment.DisplayMenu();
+
+                //COMMENTED OUT FOR TESTING
+                //CalculatePayment payment = new CalculatePayment();
+                //CalculatePayment.DisplayMenu();
 
                 //Placeholder double received to store return of PaymentOptions
                 //double received = PaymentValidation.PaymentOptions();
@@ -83,15 +95,34 @@ namespace FreshFarms
                 Console.WriteLine();
                 repeat = Order.Repeater();
 
-
             }
+
+            double subTotal = Math.Round(CalculatePayment.GetSubTotal(orderedProducts, quantities), 2);
+            Console.WriteLine();
+            Console.WriteLine($"The SubTotal of all ordered items is: {subTotal.ToString("C", CultureInfo.CurrentCulture)}");
+
+            double salesTax = CalculatePayment.GetSalesTax(subTotal);
+            Console.WriteLine();
+            Console.WriteLine($"The sales tax is: {salesTax.ToString("C", CultureInfo.CurrentCulture)}");
+
+            double grandTotal = CalculatePayment.GetGrandTotal(subTotal, salesTax);
+            Console.WriteLine();
+            Console.WriteLine($"The grand total is: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
+
+            double cashReturned = PaymentValidation.PaymentOptions(grandTotal);
+
+
+
             ProductPOS.AddProduct(productList);
+
+        }
+            
 
             
         }
 
     }
-}
+
 
 
 //POS TERMINAL(That stands for Point-of-Sale, but what you think of your project is up to you.) 
