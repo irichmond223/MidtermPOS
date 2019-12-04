@@ -11,9 +11,17 @@ namespace FreshFarms
         {
             return amount;
         }
-        public static double GetSubTotal(double itemPrice, int quantity)
+
+        //Modified to accept two lists and calculate total by multiplying the item price by quantity and adding together all of the results
+        public static double GetSubTotal(List<Product> productList, List<int> quantities)
         {
-            double subTotal = Math.Round(itemPrice * quantity, 2);
+            double subTotal= 0;
+
+            for (int index = 0; index < productList.Count; index++)
+            {
+                subTotal += productList[index].Price * quantities[index];
+            }
+
             return subTotal;
         }
         //takes in subtotal, returns sales tax amount
@@ -32,44 +40,45 @@ namespace FreshFarms
         //I think the item price at the lease might have to be changed to reflect the price directly from the List<Product>
         //I didn't want to mess with the program file until we were able to get together
         //Anyway, this calls all the methods and then asks the customer if they'd like to repeat the dispaly or quit
-        public static void DisplayMenu()
-        {
-            bool repeat = true;
+        //COMMENTED OUT DUE TO CHANGE IN OTHER METHODS
+        //public static void DisplayMenu()
+        //{
+        //    bool repeat = true;
 
-            while (repeat)
-            {
-                Console.WriteLine("Enter Quantity.");
-                string input = Console.ReadLine();
-                int quantity = CalculatePayment.GetQuantity(Validator.ValidateNum(input));
-                Console.WriteLine($"Quantity: {quantity}");
+        //    while (repeat)
+        //    {
+        //        Console.WriteLine("Enter Quantity.");
+        //        string input = Console.ReadLine();
+        //        int quantity = CalculatePayment.GetQuantity(Validator.ValidateNum(input));
+        //        Console.WriteLine($"Quantity: {quantity}");
 
-                Console.WriteLine("Item price?");
-                double itemPrice = double.Parse(Console.ReadLine());
-                double subTotal = Math.Round(CalculatePayment.GetSubTotal(itemPrice, quantity), 2);
-                Console.WriteLine($"Subtotal: {0:$}{CalculatePayment.GetSubTotal(itemPrice, quantity)}");
+        //        Console.WriteLine("Item price?");
+        //        double itemPrice = double.Parse(Console.ReadLine());
+        //        double subTotal = Math.Round(CalculatePayment.GetSubTotal(itemPrice, quantity), 2);
+        //        Console.WriteLine($"Subtotal: {0:$}{CalculatePayment.GetSubTotal(itemPrice, quantity)}");
 
-                double salesTax = Math.Round(CalculatePayment.GetSalesTax(subTotal), 2);
-                Console.WriteLine($"Sales tax: {0:$}{CalculatePayment.GetSalesTax(subTotal)}");
+        //        double salesTax = Math.Round(CalculatePayment.GetSalesTax(subTotal), 2);
+        //        Console.WriteLine($"Sales tax: {0:$}{CalculatePayment.GetSalesTax(subTotal)}");
 
-                Console.WriteLine($"Grand total: {0:$}{CalculatePayment.GetGrandTotal(subTotal, salesTax)}");
+        //        Console.WriteLine($"Grand total: {0:$}{CalculatePayment.GetGrandTotal(subTotal, salesTax)}");
 
-                Console.WriteLine("Would you like to see the display again? [Y/N]");
-                string seeDisplayAgain = Console.ReadLine();
+        //        Console.WriteLine("Would you like to see the display again? [Y/N]");
+        //        string seeDisplayAgain = Console.ReadLine();
 
-                if (seeDisplayAgain == "N" || seeDisplayAgain == "n")
-                {
-                    repeat = false;
-                }
-                else if (seeDisplayAgain == "Y" || seeDisplayAgain == "y")
-                {
-                    repeat = true;
-                }
-                else
-                {
-                    repeat = false;
-                }
-            }
-        }
+        //        if (seeDisplayAgain == "N" || seeDisplayAgain == "n")
+        //        {
+        //            repeat = false;
+        //        }
+        //        else if (seeDisplayAgain == "Y" || seeDisplayAgain == "y")
+        //        {
+        //            repeat = true;
+        //        }
+        //        else
+        //        {
+        //            repeat = false;
+        //        }
+        //    }
+        //}
     }
 }
 //Allow the user to choose a quantity for the item ordered.Give the user a line total(item price * quantity).

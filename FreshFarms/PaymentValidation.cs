@@ -148,7 +148,7 @@ namespace FreshFarms
             return input;
         }
 
-        public static double PaymentOptions()
+        public static double PaymentOptions(double grandTotal)
         {
             string selection;
             double amountPaid = 0.00;
@@ -169,19 +169,19 @@ namespace FreshFarms
                 if (selection == "1")
                 {
                     //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
-                    amountPaid = CashPayment(123.45);
+                    amountPaid = CashPayment(grandTotal);
                     repeat = false;
                 }
                 else if (selection == "2")
                 {
                     //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
-                    amountPaid = CheckPayment(123.45);
+                    amountPaid = CheckPayment(grandTotal);
                     repeat = false;
                 }
                 else if (selection == "3")
                 {
                     //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
-                    amountPaid = CardPayment(123.45);
+                    amountPaid = CardPayment(grandTotal);
                     repeat = false;
                 }
                 else

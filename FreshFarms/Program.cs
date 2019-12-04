@@ -40,6 +40,9 @@ namespace FreshFarms
             //List to save all items within a category
             List<Product> byCategory = new List<Product>();
 
+            //Holds the inputed item quantities
+            List<int> quantities = new List<int>();
+
             
             //Calling method from Product class to send to text file
             Product newProduct = new Product();
@@ -61,6 +64,10 @@ namespace FreshFarms
 
                 Order.ProductSelection(productList, orderedProducts);
 
+                //Adds user input to a quantities list
+                Console.Write("Please enter a quantity: ");
+                quantities.Add(Validator.ValidateNum(Console.ReadLine()));
+
                 Console.WriteLine();
                 
 
@@ -73,18 +80,31 @@ namespace FreshFarms
                     itemTwo++;
                 }
                 Console.WriteLine();
-                CalculatePayment payment = new CalculatePayment();
-                CalculatePayment.DisplayMenu();
+
+                //COMMENTED OUT FOR TESTING
+                //CalculatePayment payment = new CalculatePayment();
+                //CalculatePayment.DisplayMenu();
 
                 //Placeholder double received to store return of PaymentOptions
-                double received = PaymentValidation.PaymentOptions();
+                //double received = PaymentValidation.PaymentOptions();
 
                 Console.WriteLine();
                 repeat = Order.Repeater();
-
-                
             }
-            Product.AddProduct(productList);
+
+            double subTotal = Math.Round(CalculatePayment.GetSubTotal(orderedProducts, quantities), 2);
+            Console.WriteLine();
+            Console.WriteLine($"The SubTotal of all ordered items is: {subTotal}");
+
+            double salesTax = CalculatePayment.GetSalesTax(subTotal);
+            Console.WriteLine();
+            Console.WriteLine($"The sales tax is: {salesTax}");
+
+            double grandTotal = CalculatePayment.GetGrandTotal(subTotal, salesTax);
+            Console.WriteLine();
+            Console.WriteLine($"The grand total is: {grandTotal}");
+
+            double cashReturned = PaymentValidation.PaymentOptions(grandTotal);
 
             StreamReader sr = new StreamReader(@"C:..\..\..\Product.txt");
             List<string> tempList = new List<string>();
