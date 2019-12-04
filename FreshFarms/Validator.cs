@@ -120,6 +120,7 @@ namespace FreshFarms
             {
                 try
                 {
+
                     stringUserInput = Console.ReadLine().ToLower();
 
                     if (string.IsNullOrEmpty(stringUserInput))

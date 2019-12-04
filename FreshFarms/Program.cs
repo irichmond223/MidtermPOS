@@ -42,9 +42,10 @@ namespace FreshFarms
 
 
             //Calling method from Product class to send to text file
-            Product newProduct = new Product();
+            ProductPOS newProduct = new ProductPOS();
             newProduct.ProductToFile(productList);
 
+            ProductPOS.GetCurrentInventory();
             //Sorting list by name
             productList.Sort((a, b) => a.Name.CompareTo(b.Name));
 
@@ -77,32 +78,16 @@ namespace FreshFarms
                 CalculatePayment.DisplayMenu();
 
                 //Placeholder double received to store return of PaymentOptions
-                double received = PaymentValidation.PaymentOptions();
+                //double received = PaymentValidation.PaymentOptions();
 
                 Console.WriteLine();
                 repeat = Order.Repeater();
 
 
             }
-            Product.AddProduct(productList);
+            ProductPOS.AddProduct(productList);
 
-            StreamReader sr = new StreamReader(@"C:..\..\..\Product.txt");
-            List<string> tempList = new List<string>();
-
-            string line = "";
-
-
-            while (line != null)
-            {
-
-                line = sr.ReadLine();
-                if (line != null)
-                {
-                    tempList.Add(line);
-                }
-            }
-
-            sr.Close();
+            
         }
 
     }
