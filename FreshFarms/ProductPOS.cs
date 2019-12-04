@@ -156,10 +156,12 @@ namespace FreshFarms
                             subTotal = 0;
                             grandTotal = 0;
                             orderedProducts.Clear();
-                            repeatTwo = false;
                             repeat = true;
+                            repeatThree = false;
+                            repeatTwo = true;
+                           
                         }
-                        else if ((startOver == "n" || startOver.ToLower() == "N"))
+                        else if (startOver == "n" || startOver.ToLower() == "N")
                         {
                             Console.WriteLine("Come back soon.");
                             repeatTwo = false;
