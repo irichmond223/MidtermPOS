@@ -1,33 +1,18 @@
 
-#   Name            Category        Description                                                            Price                                                                 
+#   Name            Category        Description                                                                                Price                                                                 
 
-1   Onions          Produce         1lb, White                                                             $0.99                                                                  
-2   Cabbage         Produce         1lb Green                                                              $2.07                                                                  
-3   Tomato          Produce         1lb Roma                                                               $0.29                                                                  
-4   Cucumber        Produce         1ct Fresh                                                              $0.54                                                                  
-5   Turkey          Meat            1lb It's natural ground turkey 93% lean.                               $4.49                                                                  
-6   Chicken         Meat            1lb It's fresh 100% natural boneless and skinless chicken breast.      $7.05                                                                  
-7   Bacon           Meat            16oz slow smoked and hand-trimmed from the finest cuts of pork.        $7.05                                                                  
-8   Sausage         Meat            14oz Handcrafted with natural spices and only the finest cuts of meat. $2.53                                                                  
-9   Pork            Meat            1lb Boneless Loin Chops, 3 chops per pack.                             $6.14                                                                  
-10  Yogurt          Dairy           5oz tarts with simple, all natural, non-GMO ingredients.               $1.49                                                                  
-11  Cream Cheese    Dairy           8oz Cream Cheese always starts with fresh milk and real cream.         $1.67                                                                  
-12  Milk            Dairy           1/2 gal Enjoy organic 2% reduced fat milk.                             $2.99                                                                  
-13  Coffee Creamer  Dairy           28 fl oz creamer with the rich flavors of cinnamon streusel.           $4.99                                                                  
-14  Cheese Slices   Dairy           8oz Distinctive for its orange rind and mild flavor.                   $3.99                                                                  
-1   Bacon           Meat            16oz slow smoked and hand-trimmed from the finest cuts of pork.        $7.05                                                                  
-2   Cabbage         Produce         1lb Green                                                              $2.07                                                                  
-3   Cheese Slices   Dairy           8oz Distinctive for its orange rind and mild flavor.                   $3.99                                                                  
-4   Chicken         Meat            1lb It's fresh 100% natural boneless and skinless chicken breast.      $7.05                                                                  
-5   Coffee Creamer  Dairy           28 fl oz creamer with the rich flavors of cinnamon streusel.           $4.99                                                                  
-6   Cream Cheese    Dairy           8oz Cream Cheese always starts with fresh milk and real cream.         $1.67                                                                  
-7   Cucumber        Produce         1ct Fresh                                                              $0.54                                                                  
-8   Milk            Dairy           1/2 gal Enjoy organic 2% reduced fat milk.                             $2.99                                                                  
-9   Onions          Produce         1lb, White                                                             $0.99                                                                  
-10  Pork            Meat            1lb Boneless Loin Chops, 3 chops per pack.                             $6.14                                                                  
-11  Potatoes        Produce         1lb, Russels                                                           $0.79                                                                  
-12  Sausage         Meat            14oz Handcrafted with natural spices and only the finest cuts of meat. $2.53                                                                  
-13  Tomato          Produce         1lb Roma                                                               $0.29                                                                  
-14  Turkey          Meat            1lb It's natural ground turkey 93% lean.                               $4.49                                                                  
-15  Yogurt          Dairy           5oz tarts with simple, all natural, non-GMO ingredients.               $1.49                                                                  
-16  hello           fgfgff          fgfgfg                                                                 $12.12                                                                 
+1   Bacon           Meat            16oz slow smoked and hand-trimmed from the finest cuts of pork.                            $7.05                                                                  
+2   Cabbage         Produce         1lb Green                                                                                  $2.07                                                                  
+3   Cheese Slices   Dairy           8oz Delicious natural cheeses blended together to create a whole new flavor experience.    $3.99                                                                  
+4   Chicken         Meat            1lb It's fresh 100% natural boneless and skinless chicken breast.                          $7.05                                                                  
+5   Coffee Creamer  Dairy           28 fl oz creamer with the rich flavors of cinnamon streusel.                               $4.99                                                                  
+6   Cream Cheese    Dairy           8oz Cream Cheese always starts with fresh milk and real cream.                             $1.67                                                                  
+7   Cucumber        Produce         1ct Fresh                                                                                  $0.54                                                                  
+8   Milk            Dairy           1/2 gal Enjoy organic 2% reduced fat milk.                                                 $2.99                                                                  
+9   Onions          Produce         1lb, White                                                                                 $0.99                                                                  
+10  Pork            Meat            1lb Boneless Loin Chops, 3 chops per pack.                                                 $6.14                                                                  
+11  Potatoes        Produce         1lb, Russels                                                                               $0.79                                                                  
+12  Sausage         Meat            14oz Handcrafted with natural spices and only the finest cuts of meat.                     $2.53                                                                  
+13  Tomato          Produce         1lb Roma                                                                                   $0.29                                                                  
+14  Turkey          Meat            1lb It's natural ground turkey 93% lean.                                                   $4.49                                                                  
+15  Yogurt          Dairy           5oz tarts with simple, all natural, non-GMO ingredients.                                   $1.49                                                                  

@@ -111,7 +111,7 @@ namespace FreshFarms
                 try
                 {
 
-                    item = int.Parse(input);
+                    item = int.Parse(input) - 1;
                     test = listInput[item].Name;
                     again = false;
                 }

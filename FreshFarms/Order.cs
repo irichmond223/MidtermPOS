@@ -32,7 +32,7 @@ namespace FreshFarms
                 }
                 else if (Regex.IsMatch(reply.ToLower(), @"(y)|(yes)"))
                 {
-                    repeat = false;
+                    repeat = true;
                     return true;
                 }
                 else if (Regex.IsMatch(reply.ToLower(), @"(n)|(no)"))
@@ -46,23 +46,23 @@ namespace FreshFarms
                 }
 
             }
-            return true;
+            return repeat;
         }
 
         public static void GroceryList(List<Product> productList)
         {
             //Columns Headers
 
-            Console.WriteLine($"\n{"#",-3} {"Name",-15} {"Category",-15} {"Description",-70} {"Price",-70}\n");
+            Console.WriteLine($"\n{"#",-3} {"Name",-15} {"Category",-15} {"Description",-90} {"Price",-90}\n");
 
             //Iterate through List to show what is in stock
-            int countNum = 1;
+            int countNum = 0;
             foreach (Product c in productList)
             {
 
                 //byCategory.Add(c);
 
-                Console.WriteLine($"{countNum,-3} {c.Name,-15} {c.Category,-15} {c.Description,-70} ${c.Price,-70}");
+                Console.WriteLine($"{countNum + 1,-3} {c.Name,-15} {c.Category,-15} {c.Description,-90} ${c.Price,-90}");
                 countNum++;
             }
         }
@@ -74,15 +74,10 @@ namespace FreshFarms
             string stringUserInput = Console.ReadLine();
             int intUserInput = Validator.ValidateIndex(stringUserInput, productList);
 
-            //As long as user chooses numbers over 0 and enters a number without exceeding the list index
-            if (intUserInput > 0 && intUserInput <= productList.Count)
-            {
-
-                Console.WriteLine($"Product: {productList[intUserInput - 1].Name}");
-                Console.WriteLine($"Price: ${productList[intUserInput - 1].Price}");
-                Console.WriteLine($"Product Information: {productList[intUserInput - 1].Description}");
-                orderedProducts.Add(productList[intUserInput - 1]);
-            }
+                Console.WriteLine($"Product: {productList[intUserInput].Name}");
+                Console.WriteLine($"Price: ${productList[intUserInput].Price}");
+                Console.WriteLine($"Product Information: {productList[intUserInput].Description}");
+                orderedProducts.Add(productList[intUserInput]);
         }
     }
 }

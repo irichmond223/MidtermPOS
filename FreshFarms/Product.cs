@@ -45,10 +45,7 @@ namespace FreshFarms
             Description = description;
             Price = price;
 
-        }
-
-
-        
+        } 
 
     }
 
