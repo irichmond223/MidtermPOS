@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Globalization;
 
 namespace FreshFarms
 {
@@ -94,15 +95,15 @@ namespace FreshFarms
 
             double subTotal = Math.Round(CalculatePayment.GetSubTotal(orderedProducts, quantities), 2);
             Console.WriteLine();
-            Console.WriteLine($"The SubTotal of all ordered items is: {subTotal}");
+            Console.WriteLine($"The SubTotal of all ordered items is: {subTotal.ToString("C", CultureInfo.CurrentCulture)}");
 
             double salesTax = CalculatePayment.GetSalesTax(subTotal);
             Console.WriteLine();
-            Console.WriteLine($"The sales tax is: {salesTax}");
+            Console.WriteLine($"The sales tax is: {salesTax.ToString("C", CultureInfo.CurrentCulture)}");
 
             double grandTotal = CalculatePayment.GetGrandTotal(subTotal, salesTax);
             Console.WriteLine();
-            Console.WriteLine($"The grand total is: {grandTotal}");
+            Console.WriteLine($"The grand total is: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
 
             double cashReturned = PaymentValidation.PaymentOptions(grandTotal);
 
