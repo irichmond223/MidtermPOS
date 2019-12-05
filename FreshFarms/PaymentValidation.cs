@@ -148,10 +148,9 @@ namespace FreshFarms
             return input;
         }
 
-        public static double PaymentOptions(double grandTotal)
+        public static string PaymentOptions()
         {
             string selection;
-            double amountPaid = 0.00;
             bool repeat;
 
             Console.WriteLine("Available payment Options:");
@@ -166,30 +165,38 @@ namespace FreshFarms
             {
                 selection = Console.ReadLine();
 
-                if (selection == "1")
+                while (selection != "1" && selection != "2" && selection != "3")
                 {
-                    //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
-                    amountPaid = CashPayment(grandTotal);
-                    repeat = false;
-                }
-                else if (selection == "2")
-                {
-                    //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
-                    amountPaid = CheckPayment(grandTotal);
-                    repeat = false;
-                }
-                else if (selection == "3")
-                {
-                    //DEFAULT VALUE HARDCODED. REPLACE WITH PROPER PARAMETER WHEN AVAILABLE
-                    amountPaid = CardPayment(grandTotal);
-                    repeat = false;
-                }
-                else
-                {
-                    Console.Write("Invalid option. Please select the number of an option listed: ");
+                    Console.Write("Please enter a valid number: ");
+                    selection = Console.ReadLine();
                     repeat = true;
                 }
+                repeat = false;
             } while (repeat);
+
+            return selection;
+        }
+
+        public static double ProcessPayment(double grandTotal, string selection)
+        {
+            double amountPaid = 0.00;
+
+            if (selection == "1")
+            {
+                amountPaid = CashPayment(grandTotal);
+            }
+            else if (selection == "2")
+            {
+                amountPaid = CheckPayment(grandTotal);
+            }
+            else if (selection == "3")
+            {
+                amountPaid = CardPayment(grandTotal);
+            }
+            else
+            {
+                Console.Write("Invalid option. Please select the number of an option listed: ");
+            }
 
             return amountPaid;
         }

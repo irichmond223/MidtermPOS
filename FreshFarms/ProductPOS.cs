@@ -45,8 +45,12 @@ namespace FreshFarms
 
             //List for ordered items in order to track what has been ordered 
             List<Product> orderedProducts = new List<Product>();
+
+            //Holds the inputed item quantities
+            List<int> quantities = new List<int>();
+
             //Calling method to send to text file
-            
+
 
 
             bool repeat = true;
@@ -68,6 +72,10 @@ namespace FreshFarms
 
                     Order.ProductSelection(productList, orderedProducts);
 
+                    //Adds user input to a quantities list
+                    Console.Write("Please enter a quantity: ");
+                    quantities.Add(Validator.ValidateNum(Console.ReadLine()));
+
                     Console.WriteLine();
                     repeatTwo = Order.Repeater();
 
@@ -75,11 +83,7 @@ namespace FreshFarms
                 }
                 while (repeatThree)
                 {
-                    //Holds the inputed item quantities
-                    List<int> quantities = new List<int>();
-                    //Adds user input to a quantities list
-                    Console.Write("Please enter a quantity: ");
-                    quantities.Add(Validator.ValidateNum(Console.ReadLine()));
+                    
 
                     Console.WriteLine();
                     Console.WriteLine("Order Summary:");
@@ -97,7 +101,9 @@ namespace FreshFarms
                     Console.WriteLine($"The grand total is: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
 
                     Console.WriteLine();
-                    double cashReturned = PaymentValidation.PaymentOptions(grandTotal);
+                    string paymentSelection = PaymentValidation.PaymentOptions();
+                    double cashReturned = PaymentValidation.ProcessPayment(grandTotal, paymentSelection);
+                    string paymentType = GetPaymentType(paymentSelection);
                 
                 //COMMENTED OUT FOR TESTING
                 //CalculatePayment payment = new CalculatePayment();
@@ -126,9 +132,7 @@ namespace FreshFarms
                             Console.WriteLine($"Quantity: {quantities[input]}");
                             Console.WriteLine($"Subtotal: ${subTotal}");
                             Console.WriteLine($"Grand Total: ${grandTotal}");
-                            Console.WriteLine($"Payment type: ${cashReturned}");
-                            //Still working on getting Payment info to display
-                            Console.WriteLine($"Payment type: ");
+                            Console.WriteLine($"Payment type: {paymentType}");
                             Console.WriteLine($"Amount owed: ");
                             Console.WriteLine($"Amount paid: ");
                             Console.WriteLine($"Change: ");
@@ -225,7 +229,25 @@ namespace FreshFarms
 
         #endregion
         
-
+        public static string GetPaymentType(string selection)
+        {
+            if (selection == "1")
+            {
+                return "Cash";
+            }
+            else if (selection == "2")
+            {
+                return "Check";
+            }
+            else if (selection == "3")
+            {
+                return "Card";
+            }
+            else
+            {
+                return "Invalid Payment Type";
+            }
+        }
         public static void AddProduct(List<Product> productList)
         {
             bool endProgram = true;
