@@ -6,6 +6,7 @@ namespace FreshFarms
 {
     class CalculatePayment
     {
+        #region Methods
         //takes in users input for quantity
         public static int GetQuantity(int amount)
         {
@@ -36,6 +37,7 @@ namespace FreshFarms
             double grandTotal = Math.Round(subTotal + salesTax, 2);
             return grandTotal;
         }
+        #endregion
         //a lot of this will eventually have to change I believe. unless we run the customers input through here but...
         //I think the item price at the lease might have to be changed to reflect the price directly from the List<Product>
         //I didn't want to mess with the program file until we were able to get together

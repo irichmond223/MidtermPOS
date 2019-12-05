@@ -7,9 +7,10 @@ namespace FreshFarms
 {
     class Order:Product
     {
+        #region overloaded constructor
         //At the end, display a receipt with all items ordered, subtotal, grand total, and appropriate payment info. 
 
-           //this overloaded constructor is used when building objects from our CSV file
+        //this overloaded constructor is used when building objects from our CSV file
         public Order(string name, string category, string description, double price)//pass in the necessary values
         {
             Name = name;
@@ -17,12 +18,13 @@ namespace FreshFarms
             Description = description;
             Price = price;
         }
+        #endregion
 
-      
+        #region Methods
         public static bool Repeater()
         {
             bool repeat = true;
-            Console.WriteLine("Do you wish to add another order? (y) or (n)");
+            Console.Write("Do you wish to add another order? (y/n):");
             while (repeat)
             {
                 string reply = Console.ReadLine().ToLower();
@@ -57,12 +59,12 @@ namespace FreshFarms
 
             //Iterate through List to show what is in stock
             int countNum = 0;
-            foreach (Product c in productList)
+            foreach (Product inventory in productList)
             {
 
                 //byCategory.Add(c);
 
-                Console.WriteLine($"{countNum + 1,-3} {c.Name,-15} {c.Category,-15} {c.Description,-90} ${c.Price,-90}");
+                Console.WriteLine($"{countNum + 1,-3} {inventory.Name,-15} {inventory.Category,-15} {inventory.Description,-90} ${inventory.Price,-90}");
                 countNum++;
             }
         }
@@ -70,14 +72,20 @@ namespace FreshFarms
         public static void ProductSelection(List<Product> productList, List<Product> orderedProducts)
         {
             //Asks user to select a product by number
-            Console.WriteLine("Which product would you like to purchase?");
+            Console.Write("Which product would you like to purchase? Select by typing a number:");
             string stringUserInput = Console.ReadLine();
             int intUserInput = Validator.ValidateIndex(stringUserInput, productList);
-
+            orderedProducts.Add(productList[intUserInput]);
+            int item = 0;
+            foreach (Product selectedItem in orderedProducts)
+            {
                 Console.WriteLine($"Product: {productList[intUserInput].Name}");
-                Console.WriteLine($"Price: ${productList[intUserInput].Price}");
                 Console.WriteLine($"Product Information: {productList[intUserInput].Description}");
-                orderedProducts.Add(productList[intUserInput]);
+                Console.WriteLine($"Price: ${productList[intUserInput].Price}");
+                Console.WriteLine();
+                item++;
+            }
         }
+        #endregion
     }
 }
