@@ -161,6 +161,28 @@ namespace FreshFarms
 
             return validDouble;
         }
+        public static int ValidateInt()
+        {
+            int validInt = 0;
+            bool valid;
+
+            do
+            {
+                valid = true;
+                try
+                {
+                    validInt = int.Parse(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.Write("Please enter a valid value: ");
+                    valid = false;
+                }
+            } while (!valid);
+
+            return validInt;
+        }
 
         public static string TestValidity()
 

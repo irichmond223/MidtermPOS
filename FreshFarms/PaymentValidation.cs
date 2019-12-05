@@ -97,6 +97,11 @@ namespace FreshFarms
             Console.Write("Please enter the card number: ");
             RegexValidate(@"(^[5]{1}[0-9]{15}$|^[3]{1}[4,7]{1}[0-9]{13}$|^[6]{1}[0-9]{15}$)");
 
+            ValidateDate();
+
+            Console.Write("Please enter your card's CVV: ");
+            RegexValidate(@"(^[0-9]{3,4}$)");
+
             Console.Write("Cash back requested? (y/n): ");
             cashBackSelect = Console.ReadLine().ToLower();
 
@@ -112,7 +117,7 @@ namespace FreshFarms
                 cashBack = CheckPositiveDouble(Validator.ValidateDouble());
             }
 
-            received = totalCost + cashBack;
+            received = Math.Round(totalCost + cashBack, 2);
 
             Console.WriteLine($"Amount owed: {totalCost}");
             Console.WriteLine($"Cash back: {cashBack}");
@@ -206,6 +211,35 @@ namespace FreshFarms
         {
             double change = Math.Round(amountReceived - totalCost, 2);
             return change;
+        }
+
+        public static void ValidateDate()
+        {
+            int month = 1, year = 2000;
+            DateTime today = DateTime.Today;
+            DateTime compare = new DateTime(today.Year, today.Month, 1);
+
+            Console.Write("What year does the card expire?: ");
+            year = Validator.ValidateInt();
+
+            Console.Write("What month does the card expire?: ");
+            month = Validator.ValidateInt();
+
+            DateTime card = new DateTime(year, month, 1);
+
+
+            while (card < compare)
+            {
+                Console.WriteLine("The given date is not valid or the card has expired. Please give a valid date.");
+
+                Console.Write("What year does the card expire?: ");
+                year = Validator.ValidateInt();
+
+                Console.Write("What month does the card expire?: ");
+                month = Validator.ValidateInt();
+
+                card = new  DateTime(year, month, 1);
+            }
         }
     }
 }
