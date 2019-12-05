@@ -83,7 +83,7 @@ namespace FreshFarms
 
                     Console.WriteLine();
                     Console.WriteLine("Order Summary:");
-                    Console.WriteLine();
+
                     double subTotal = Math.Round(CalculatePayment.GetSubTotal(orderedProducts, quantities), 2);
                     Console.WriteLine();
                     Console.WriteLine($"The SubTotal of all ordered items is: {subTotal.ToString("C", CultureInfo.CurrentCulture)}");
@@ -117,21 +117,21 @@ namespace FreshFarms
                     {
                         int input = 0;
                         int items = 0;
-                        foreach (Product b in orderedProducts)
+                        foreach (Product paymentReceipt in orderedProducts)
                         {
                             Console.WriteLine("Order Details:");
                             Console.WriteLine();
-                            Console.WriteLine($"Product: {b.Name}");
-                            Console.WriteLine($"Price: ${b.Price}");
+                            Console.WriteLine($"Product: {paymentReceipt.Name}");
+                            Console.WriteLine($"Price: ${paymentReceipt.Price}");
                             Console.WriteLine($"Quantity: {quantities[input]}");
                             Console.WriteLine($"Subtotal: ${subTotal}");
                             Console.WriteLine($"Grand Total: ${grandTotal}");
                             Console.WriteLine($"Payment type: ${cashReturned}");
                             //Still working on getting Payment info to display
-                            Console.WriteLine($"Payment type: ");
-                            Console.WriteLine($"Amount owed: ");
-                            Console.WriteLine($"Amount paid: ");
-                            Console.WriteLine($"Change: ");
+                            Console.WriteLine($"Payment type:$ ");
+                            Console.WriteLine($"Amount owed:$ ");
+                            Console.WriteLine($"Amount paid:$ ");
+                            Console.WriteLine($"Change:$ ");
                             items++;
                         }
 
