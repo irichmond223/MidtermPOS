@@ -11,10 +11,8 @@ namespace FreshFarms
     {
         public static void DisplayMenu()
         {
-
             Options();
         }
-
 
         #region Options
         public static void Options()
@@ -51,8 +49,6 @@ namespace FreshFarms
 
             //Calling method to send to text file
 
-
-
             bool repeat = true;
             bool repeatTwo = true;
             bool repeatThree = true;
@@ -79,67 +75,60 @@ namespace FreshFarms
                     Console.WriteLine();
                     repeatTwo = Order.Repeater();
 
-
                 }
                 while (repeatThree)
                 {
-                    
 
-                    Console.WriteLine();
                     Console.WriteLine("Order Summary:");
-                    Console.WriteLine();
+                    
+                    Console.WriteLine("*************************************************");
+                    
                     double subTotal = Math.Round(CalculatePayment.GetSubTotal(orderedProducts, quantities), 2);
-                    Console.WriteLine();
+                    
                     Console.WriteLine($"The SubTotal of all ordered items is: {subTotal.ToString("C", CultureInfo.CurrentCulture)}");
 
                     double salesTax = CalculatePayment.GetSalesTax(subTotal);
-                    Console.WriteLine();
+                    
                     Console.WriteLine($"The sales tax is: {salesTax.ToString("C", CultureInfo.CurrentCulture)}");
 
                     double grandTotal = CalculatePayment.GetGrandTotal(subTotal, salesTax);
-                    Console.WriteLine();
+                    
                     Console.WriteLine($"The grand total is: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
 
-                    Console.WriteLine();
+                    Console.WriteLine("*************************************************");
                     string paymentSelection = PaymentValidation.PaymentOptions();
-                    double cashReturned = PaymentValidation.ProcessPayment(grandTotal, paymentSelection);
+                    double cashReceived = PaymentValidation.ProcessPayment(grandTotal, paymentSelection);
                     string paymentType = GetPaymentType(paymentSelection);
-                
-                //COMMENTED OUT FOR TESTING
-                //CalculatePayment payment = new CalculatePayment();
-                //CalculatePayment.DisplayMenu();
+                   
 
-                //Placeholder double received to store return of PaymentOptions
-                //double received = PaymentValidation.PaymentOptions();
-
-
-                //COmmented out for now
-                //ProductPOS.AddProduct(productList);
-
-                Console.WriteLine("Would you like to review your purchase? (y) or (n)");
-                string receipt = Validator.TestValidity();
+                    Console.Write("Would you like to review your purchase? (y/n):");
+                    string receipt = Validator.TestValidity();
 
                     if (receipt == "y" || receipt.ToLower() == "Y")
                     {
                         int input = 0;
                         int items = 0;
-                        foreach (Product b in orderedProducts)
+                        foreach (Product paymentReceipt in orderedProducts)
                         {
-                            Console.WriteLine("Order Details:");
+                            double total = paymentReceipt.Price * quantities[input];
+                            Console.WriteLine("*****************************************");
                             Console.WriteLine();
-                            Console.WriteLine($"Product: {b.Name}");
-                            Console.WriteLine($"Price: ${b.Price}");
+                            Console.WriteLine($"Product: {paymentReceipt.Name}");
+                            Console.WriteLine($"Price: ${paymentReceipt.Price}");
                             Console.WriteLine($"Quantity: {quantities[input]}");
-                            Console.WriteLine($"Subtotal: ${subTotal}");
-                            Console.WriteLine($"Grand Total: ${grandTotal}");
-                            Console.WriteLine($"Payment type: {paymentType}");
-                            Console.WriteLine($"Amount owed: ");
-                            Console.WriteLine($"Amount paid: ");
-                            Console.WriteLine($"Change: ");
+                            Console.WriteLine($"Total: ${total}");
                             items++;
                         }
+                        Console.WriteLine("*********************************************");
 
-                        Console.WriteLine("Would you like to confirm your purchase? (y) or (n)");
+                        Console.WriteLine($"Subtotal: ${subTotal}");
+                        Console.WriteLine($"Grand Total: ${grandTotal}");
+                        Console.WriteLine($"Payment type: ${paymentType}");
+                        Console.WriteLine($"Amount paid: ${cashReceived}");
+                        Console.WriteLine($"Amount owed: ${grandTotal}");
+
+
+                        Console.Write("Would you like to confirm your purchase? (y/n):");
                         string confirm = Validator.TestValidity();
 
                         if (confirm == "y" || confirm.ToLower() == "Y")
@@ -152,7 +141,7 @@ namespace FreshFarms
                     }
                     else
                     {
-                        Console.WriteLine("Would you like to start over? (y) or (n)");
+                        Console.Write("Would you like to start over? (y/n):");
                         string startOver = Validator.TestValidity();
 
                         if (startOver == "y" || startOver.ToLower() == "Y")
@@ -163,7 +152,7 @@ namespace FreshFarms
                             repeat = true;
                             repeatThree = false;
                             repeatTwo = true;
-                           
+
                         }
                         else if (startOver == "n" || startOver.ToLower() == "N")
                         {
@@ -182,8 +171,7 @@ namespace FreshFarms
                     }
                 }
             }
-           
-           
+
         }
         #endregion
 
@@ -228,7 +216,8 @@ namespace FreshFarms
         }
 
         #endregion
-        
+
+        #region Methods
         public static string GetPaymentType(string selection)
         {
             if (selection == "1")
@@ -301,21 +290,35 @@ namespace FreshFarms
             }
 
         }
-
-        //Calling method from Product class to send to text file
-        // ProductPOS newProduct = new ProductPOS();
-        //ProductToFile(productList);
-
-
-
-        //Checking for ordered products to ensure the products selected have been saved
-        //int itemTwo = 0;
-        //foreach (Product b in orderedProducts)
-        //{
-        //    Console.WriteLine($"Product: {b.Name}");
-        //    Console.WriteLine($"Price: ${b.Price}");
-        //    itemTwo++;
-        //}
-        //Console.WriteLine();
+        #endregion
+        
     }
 }
+
+//Calling method from Product class to send to text file
+// ProductPOS newProduct = new ProductPOS();
+//ProductToFile(productList);
+
+
+
+//Checking for ordered products to ensure the products selected have been saved
+//int itemTwo = 0;
+//foreach (Product b in orderedProducts)
+//{
+//    Console.WriteLine($"Product: {b.Name}");
+//    Console.WriteLine($"Price: ${b.Price}");
+//    itemTwo++;
+//}
+//Console.WriteLine();
+
+
+//COMMENTED OUT FOR TESTING
+//CalculatePayment payment = new CalculatePayment();
+//CalculatePayment.DisplayMenu();
+
+//Placeholder double received to store return of PaymentOptions
+//double received = PaymentValidation.PaymentOptions();
+
+
+//COmmented out for now
+//ProductPOS.AddProduct(productList);

@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,6 +7,7 @@ namespace FreshFarms
 {
     class PaymentValidation
     {
+        #region Methods
         //takes in the total payment
         //displays total payment, amount paid, change
         //no return
@@ -29,9 +30,9 @@ namespace FreshFarms
 
             change = Math.Round(received - totalCost, 2);
 
-            Console.WriteLine($"Amount owed: {totalCost}");
-            Console.WriteLine($"Amount paid: {received}");
-            Console.WriteLine($"Change: {change}");
+            Console.WriteLine($"Amount owed: ${totalCost}");
+            Console.WriteLine($"Amount paid: ${received}");
+            Console.WriteLine($"Change: ${change}");
 
             return received;
         }
@@ -71,9 +72,9 @@ namespace FreshFarms
 
             change = Math.Round(received - totalCost, 2);
 
-            Console.WriteLine($"Amount owed: {totalCost}");
-            Console.WriteLine($"Amount paid: {received}");
-            Console.WriteLine($"Change: {change}");
+            Console.WriteLine($"Amount owed: ${totalCost}");
+            Console.WriteLine($"Amount paid: ${received}");
+            Console.WriteLine($"Change: ${change}");
 
             return received;
         }
@@ -119,9 +120,9 @@ namespace FreshFarms
 
             received = Math.Round(totalCost + cashBack, 2);
 
-            Console.WriteLine($"Amount owed: {totalCost}");
-            Console.WriteLine($"Cash back: {cashBack}");
-            Console.WriteLine($"Amount paid: {received}");
+            Console.WriteLine($"Amount owed: ${totalCost}");
+            Console.WriteLine($"Cash back: ${cashBack}");
+            Console.WriteLine($"Amount paid: ${received}");
 
             return received;
         }
@@ -241,5 +242,6 @@ namespace FreshFarms
                 card = new  DateTime(year, month, 1);
             }
         }
+        #endregion
     }
 }
