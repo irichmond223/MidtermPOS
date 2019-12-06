@@ -16,6 +16,7 @@ namespace FreshFarms
             double received, change;
 
             Console.WriteLine("Cash payment option selected.");
+            Console.WriteLine();
             Console.Write("Please enter cash amount received: ");
 
             do
@@ -23,16 +24,18 @@ namespace FreshFarms
                 received = Math.Round(CheckPositiveDouble(Validator.ValidateDouble()), 2);
                 if (received < totalCost)
                 {
+                    Console.WriteLine();
                     Console.Write("Value lower than total cost. Please ask for a larger payment: ");
                 }
             } while (received < totalCost);
            
 
             change = Math.Round(received - totalCost, 2);
-
+            Console.WriteLine();
             Console.WriteLine($"Amount owed: ${totalCost}");
             Console.WriteLine($"Amount paid: ${received}");
             Console.WriteLine($"Change: ${change}");
+            Console.WriteLine();
 
             return received;
         }
@@ -46,7 +49,7 @@ namespace FreshFarms
             double received, change;
 
             Console.WriteLine("Check payment option selected.");
-
+            Console.WriteLine();
             Console.Write("Please enter cash amount written: ");
 
             do
@@ -54,17 +57,22 @@ namespace FreshFarms
                 received = Math.Round(CheckPositiveDouble(Validator.ValidateDouble()), 2);
                 if (received < totalCost)
                 {
+                    Console.WriteLine();
                     Console.Write("Value lower than total cost. Please ask for a larger payment: ");
                 }
             } while (received < totalCost);
 
+            Console.WriteLine();
+
             //9 digits, first digit only from 0-3
             Console.Write("Please enter the routing number (9 digits): ");
             RegexValidate(@"(^[0-3]{1}[0-9]{8}$)");
+            Console.WriteLine();
 
             //10-12 digits
             Console.Write("Please enter the account number (10-12 digits): ");
             RegexValidate(@"(^[0-9]{10,12}$)");
+            Console.WriteLine();
 
             //4 digits
             Console.Write("Please enter the check number (4 digits): ");
@@ -72,9 +80,11 @@ namespace FreshFarms
 
             change = Math.Round(received - totalCost, 2);
 
+            Console.WriteLine();
             Console.WriteLine($"Amount owed: ${totalCost}");
             Console.WriteLine($"Amount paid: ${received}");
             Console.WriteLine($"Change: ${change}");
+            Console.WriteLine();
 
             return received;
         }
@@ -90,39 +100,48 @@ namespace FreshFarms
             double received, cashBack = 0.00;
 
             Console.WriteLine("Card payment option selected.");
+            Console.WriteLine();
             Console.WriteLine("Please be aware that only Mastercard, Discover, and American Express are accepted at this time.");
+            Console.WriteLine();
 
             //Mastercard: first digit 5, 16 digits long
             //American Express: first digit 3, second digit 4 or 7, 15 digits long
             //Discover: first digit 6, 16 digits long
             Console.Write("Please enter the card number: ");
             RegexValidate(@"(^[5]{1}[0-9]{15}$|^[3]{1}[4,7]{1}[0-9]{13}$|^[6]{1}[0-9]{15}$)");
+            Console.WriteLine();
 
             ValidateDate();
+            Console.WriteLine();
 
             Console.Write("Please enter your card's CVV: ");
             RegexValidate(@"(^[0-9]{3,4}$)");
+            Console.WriteLine();
 
             Console.Write("Cash back requested? (y/n): ");
             cashBackSelect = Console.ReadLine().ToLower();
 
             while (cashBackSelect != "y" && cashBackSelect != "n")
             {
+                Console.WriteLine();
                 Console.Write("Invalid input. Please select 'y' or 'n': ");
                 cashBackSelect = Console.ReadLine().ToLower();
             }
 
             if (cashBackSelect == "y")
             {
+                Console.WriteLine();
                 Console.Write("Please write cash back amount: ");
                 cashBack = CheckPositiveDouble(Validator.ValidateDouble());
             }
 
             received = Math.Round(totalCost + cashBack, 2);
 
+            Console.WriteLine();
             Console.WriteLine($"Amount owed: ${totalCost}");
             Console.WriteLine($"Cash back: ${cashBack}");
             Console.WriteLine($"Amount paid: ${received}");
+            Console.WriteLine();
 
             return received;
         }
@@ -132,12 +151,13 @@ namespace FreshFarms
         //returns input string if successfully matched
         public static string RegexValidate(string regex)
         {
-            string input = Console.ReadLine();
+            string input = Validator.ValidateString();
 
             while (!Regex.Match(input, regex).Success)
             {
+                Console.WriteLine();
                 Console.Write("Please enter a valid number: ");
-                input = Console.ReadLine();
+                input = Validator.ValidateString();
             }
 
             return input;
@@ -159,7 +179,7 @@ namespace FreshFarms
             string selection;
             bool repeat;
 
-            Console.WriteLine("Available payment Options:");
+            Console.WriteLine("Available payment options:");
             Console.WriteLine();
             Console.WriteLine("1. Cash");
             Console.WriteLine("2. Check");
@@ -179,6 +199,8 @@ namespace FreshFarms
                 }
                 repeat = false;
             } while (repeat);
+
+            Console.WriteLine();
 
             return selection;
         }
@@ -216,9 +238,10 @@ namespace FreshFarms
 
         public static void ValidateDate()
         {
-            int month = 1, year = 2000;
+            int month, year;
             DateTime today = DateTime.Today;
             DateTime compare = new DateTime(today.Year, today.Month, 1);
+            DateTime card;
 
             Console.Write("What year does the card expire?: ");
             year = Validator.ValidateInt();
@@ -226,11 +249,28 @@ namespace FreshFarms
             Console.Write("What month does the card expire?: ");
             month = Validator.ValidateInt();
 
-            DateTime card = new DateTime(year, month, 1);
+            try
+            {
+                card = new DateTime(year, month, 1);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine();
+                Console.WriteLine("The given date is not valid or the card has expired. Please give a valid date.");
+
+                Console.Write("What year does the card expire?: ");
+                year = Validator.ValidateInt();
+
+                Console.Write("What month does the card expire?: ");
+                month = Validator.ValidateInt();
+
+                card = new DateTime(year, month, 1);
+            }
 
 
             while (card < compare)
             {
+                Console.WriteLine();
                 Console.WriteLine("The given date is not valid or the card has expired. Please give a valid date.");
 
                 Console.Write("What year does the card expire?: ");

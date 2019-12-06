@@ -81,6 +81,10 @@ namespace FreshFarms
 
         public static void CartDisplay(List<Product> orderedProducts, List<int> quantities)
         {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Your Cart:");
+            Console.WriteLine();
             for (int index = 0; index < orderedProducts.Count; index++)
             {
                 Console.WriteLine($"Product: {orderedProducts[index].Name}");

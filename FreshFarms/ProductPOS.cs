@@ -80,9 +80,10 @@ namespace FreshFarms
                 }
                 while (repeatThree)
                 {
-
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine("Order Summary:");
-                    
+                    Console.WriteLine();
                     Console.WriteLine("*************************************************");
                     
                     double subTotal = Math.Round(CalculatePayment.GetSubTotal(orderedProducts, quantities), 2);
@@ -98,16 +99,23 @@ namespace FreshFarms
                     Console.WriteLine($"The grand total is: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
 
                     Console.WriteLine("*************************************************");
+                    Console.WriteLine();
+
                     string paymentSelection = PaymentValidation.PaymentOptions();
                     double cashReceived = PaymentValidation.ProcessPayment(grandTotal, paymentSelection);
                     string paymentType = GetPaymentType(paymentSelection);
                    
 
-                    Console.Write("Would you like to review your purchase? (y/n):");
+                    Console.Write("Would you like to review your purchase? (y/n): ");
                     string receipt = Validator.TestValidity();
+                    Console.WriteLine();
 
                     if (receipt == "y" || receipt.ToLower() == "Y")
                     {
+                        Console.WriteLine();
+                        Console.WriteLine("Your Total Order:");
+                        Console.WriteLine();
+
                         for (int index = 0; index < orderedProducts.Count; index++)
                         {
                             Console.WriteLine("*********************************************");
@@ -115,20 +123,22 @@ namespace FreshFarms
                             Console.WriteLine($"Price: ${orderedProducts[index].Price, -10} Quantity: {quantities[index], -5} Total: ${quantities[index] * orderedProducts[index].Price}");
                             Console.WriteLine();
                         }
-                        Console.WriteLine("*********************************************");
 
+                        Console.WriteLine("*********************************************");
+                        Console.WriteLine();
                         Console.WriteLine($"Subtotal: ${subTotal}");
                         Console.WriteLine($"Grand Total: ${grandTotal}");
-                        Console.WriteLine($"Payment type: ${paymentType}");
+                        Console.WriteLine($"Payment type: {paymentType}");
                         Console.WriteLine($"Amount paid: ${cashReceived}");
                         Console.WriteLine($"Amount owed: ${grandTotal}");
-
+                        Console.WriteLine();
 
                         Console.Write("Would you like to confirm your purchase? (y/n):");
                         string confirm = Validator.TestValidity();
 
                         if (confirm == "y" || confirm.ToLower() == "Y")
                         {
+                            Console.WriteLine();
                             Console.WriteLine("Your order has been placed. Thank you for your purchase!");
                             repeatTwo = false;
                             repeatThree = false;
