@@ -51,6 +51,8 @@ namespace FreshFarms
                     Console.Write("Please enter a quantity: ");
                     quantities.Add(Validator.ValidateNum(Console.ReadLine()));
 
+                    Order.CartDisplay(orderedProducts, quantities);
+
                     Console.WriteLine();
                     repeatTwo = Order.AddAnotherOrder();
 
@@ -86,18 +88,12 @@ namespace FreshFarms
 
                     if (receipt == "y" || receipt.ToLower() == "Y")
                     {
-                        int input = 0;
-                        int items = 0;
-                        foreach (Product paymentReceipt in orderedProducts)
+                        for (int index = 0; index < orderedProducts.Count; index++)
                         {
-                            double total = paymentReceipt.Price * quantities[input];
-                            Console.WriteLine("*****************************************");
+                            Console.WriteLine("*********************************************");
+                            Console.WriteLine($"Product: {orderedProducts[index].Name}");
+                            Console.WriteLine($"Price: ${orderedProducts[index].Price, -10} Quantity: {quantities[index], -5} Total: ${quantities[index] * orderedProducts[index].Price}");
                             Console.WriteLine();
-                            Console.WriteLine($"Product: {paymentReceipt.Name}");
-                            Console.WriteLine($"Price: ${paymentReceipt.Price}");
-                            Console.WriteLine($"Quantity: {quantities[input]}");
-                            Console.WriteLine($"Total: ${total}");
-                            items++;
                         }
                         Console.WriteLine("*********************************************");
 

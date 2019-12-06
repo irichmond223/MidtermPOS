@@ -24,7 +24,7 @@ namespace FreshFarms
         public static bool AddAnotherOrder()
         {
             bool repeat = true;
-            Console.Write("Do you wish to add another order? (y/n):");
+            Console.Write("Do you wish to add another item to your order? (y/n): ");
             while (repeat)
             {
                 string reply = Console.ReadLine().ToLower();
@@ -72,18 +72,23 @@ namespace FreshFarms
         public static void ProductSelection(List<Product> productList, List<Product> orderedProducts)
         {
             //Asks user to select a product by number
-            Console.Write("Which product would you like to purchase? Select by typing a number:");
+            Console.Write("Which product would you like to purchase? Select by typing a number: ");
             string stringUserInput = Console.ReadLine();
+
             int intUserInput = Validator.ValidateIndex(stringUserInput, productList);
             orderedProducts.Add(productList[intUserInput]);
-            int item = 0;
-            foreach (Product selectedItem in orderedProducts)
+        }
+
+        public static void CartDisplay(List<Product> orderedProducts, List<int> quantities)
+        {
+            for (int index = 0; index < orderedProducts.Count; index++)
             {
-                Console.WriteLine($"Product: {productList[intUserInput].Name}");
-                Console.WriteLine($"Product Information: {productList[intUserInput].Description}");
-                Console.WriteLine($"Price: ${productList[intUserInput].Price}");
+                Console.WriteLine($"Product: {orderedProducts[index].Name}");
+                Console.WriteLine($"Product Information: {orderedProducts[index].Description}");
+                Console.WriteLine($"Price: ${orderedProducts[index].Price}");
+                Console.WriteLine($"Quantity: {quantities[index]}");
+                Console.WriteLine($"Total: ${quantities[index] * orderedProducts[index].Price}");
                 Console.WriteLine();
-                item++;
             }
         }
         #endregion
