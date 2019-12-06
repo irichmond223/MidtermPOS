@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -81,6 +82,7 @@ namespace FreshFarms
 
         public static void CartDisplay(List<Product> orderedProducts, List<int> quantities)
         {
+            StreamWriter sw = File.AppendText(@"C:\Users\ilona\source\repos\C#\Midterm\MidtermPOS\FreshFarms\Cart.txt");
             for (int index = 0; index < orderedProducts.Count; index++)
             {
                 Console.WriteLine($"Product: {orderedProducts[index].Name}");
