@@ -21,7 +21,7 @@ namespace FreshFarms
         #endregion
 
         #region Methods
-        public static bool Repeater()
+        public static bool AddAnotherOrder()
         {
             bool repeat = true;
             Console.Write("Do you wish to add another order? (y/n):");
