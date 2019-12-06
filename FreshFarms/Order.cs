@@ -82,7 +82,14 @@ namespace FreshFarms
 
         public static void CartDisplay(List<Product> orderedProducts, List<int> quantities)
         {
+<<<<<<< HEAD
             StreamWriter sw = File.AppendText(@"C:\Users\ilona\source\repos\C#\Midterm\MidtermPOS\FreshFarms\Cart.txt");
+=======
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Your Cart:");
+            Console.WriteLine();
+>>>>>>> 7df2a90749266c55f4412a8e0b4ad380e8f6e386
             for (int index = 0; index < orderedProducts.Count; index++)
             {
                 Console.WriteLine($"Product: {orderedProducts[index].Name}");

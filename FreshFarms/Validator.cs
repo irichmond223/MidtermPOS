@@ -153,6 +153,7 @@ namespace FreshFarms
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine();
                     Console.WriteLine(ex.Message);
                     Console.Write("Please enter a valid value: ");
                     valid = false;
@@ -175,6 +176,7 @@ namespace FreshFarms
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine();
                     Console.WriteLine(ex.Message);
                     Console.Write("Please enter a valid value: ");
                     valid = false;
@@ -182,6 +184,22 @@ namespace FreshFarms
             } while (!valid);
 
             return validInt;
+        }
+
+        public static string ValidateString()
+        {
+            string validString = null;
+
+            validString = Console.ReadLine();
+
+            while (String.IsNullOrWhiteSpace(validString))
+            {
+                Console.WriteLine();
+                Console.Write("Please enter a valid input: ");
+                validString = Console.ReadLine();
+            }
+
+            return validString;
         }
 
         public static string TestValidity()
