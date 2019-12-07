@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FreshFarms
 {
-    class CalculatePayment
+    class Calculations
     {
         #region Methods
         //takes in users input for quantity

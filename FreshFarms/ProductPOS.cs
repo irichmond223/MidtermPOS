@@ -9,53 +9,54 @@ namespace FreshFarms
 {
     class ProductPOS
     {
-        public static void DisplayMenu()
+        #region DisplayMain
+        public static void DisplayMain()
         {
-            Options();
-        }
+            //Greets user
+            DisplayGreet();
 
-        #region Options
-        public static void Options()
-        {
-            Console.WriteLine($"{"Welcome to the Fresh Farms grocery store!",+75}");
+            //Holds Main list
             List<Product> productList = new List<Product>();
 
-            //List for ordered items in order to track what has been ordered 
+            //List for ordered items in order to track what has been selected 
             List<Product> orderedProducts = new List<Product>();
 
             //Holds the inputed item quantities
             List<int> quantities = new List<int>();
 
-            //Calling method to send to text file
-
-            bool repeat = true;
-            bool repeatTwo = true;
-            bool repeatThree = true;
+            bool repeat = true, repeatTwo = true, repeatThree = true;
 
             while (repeat)
             {
                 while (repeatTwo)
                 {
-                    productList = DisplayInventory();
-                    Order.GroceryList(productList);
+                    //Holds inventory
+                    productList = GroceryList();
+
+                    //Creates headers and displays inventory 
+                    Order.DisplayInventory(productList);
                     
                     Console.WriteLine();
-                    //Writes to the Product.txt
-                    ProductToFile(productList);
-                    //Reads from the Product.txt
-                    GetCurrentInventory();
 
-                    Order.ProductSelection(productList, orderedProducts);
+                    //Writes to the Product.txt
+                    TextFile.WritesTextFile(productList);
+
+                    //Reads from the Product.txt
+                    TextFile.ReadsTextFile();
+
+                    //Asks for a user to select a product to purchase
+                    Order.GetProductSelection(productList, orderedProducts);
 
                     //Adds user input to a quantities list
                     Console.Write("Please enter a quantity: ");
                     quantities.Add(Validator.ValidateNum(Console.ReadLine()));
 
-                    Order.CartDisplay(orderedProducts, quantities);
+                    //Displays specific info for the user to see what has been selected so far
+                    Order.DisplayProductSelection(orderedProducts, quantities);
 
                     Console.WriteLine();
+                    //Asks user if they would like to select another product to purchase
                     repeatTwo = Order.AddAnotherOrder();
-
                 }
                 while (repeatThree)
                 {
@@ -64,29 +65,18 @@ namespace FreshFarms
                     Console.WriteLine("Order Summary:");
 
                     Console.WriteLine();
-
                     Console.WriteLine("*************************************************");
 
-                    double subTotal = Math.Round(CalculatePayment.GetSubTotal(orderedProducts, quantities), 2);
+                    double subTotal = DisplaySubTotal(orderedProducts, quantities);
 
-                    Console.WriteLine($"The SubTotal of all ordered items is: {subTotal.ToString("C", CultureInfo.CurrentCulture)}");
-
-                    double salesTax = CalculatePayment.GetSalesTax(subTotal);
-
-                    Console.WriteLine($"The sales tax is: {salesTax.ToString("C", CultureInfo.CurrentCulture)}");
-
-                    double grandTotal = CalculatePayment.GetGrandTotal(subTotal, salesTax);
-
-                    Console.WriteLine($"The grand total is: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
-
-
+                    double salesTax = DisplaySalesTax(subTotal);
+                    double grandTotal = DisplayGrandTotal(subTotal, salesTax);
                     Console.WriteLine("*************************************************");
                     Console.WriteLine();
 
-                    string paymentSelection = PaymentValidation.PaymentOptions();
-                    double cashReceived = PaymentValidation.ProcessPayment(grandTotal, paymentSelection);
+                    string paymentSelection = Payment.PaymentOptions();
+                    double cashReceived = Payment.ProcessPayment(grandTotal, paymentSelection);
                     string paymentType = GetPaymentType(paymentSelection);
-                   
 
                     Console.Write("Would you like to review your purchase? (y/n): ");
                     string receipt = Validator.TestValidity();
@@ -94,26 +84,7 @@ namespace FreshFarms
 
                     if (receipt == "y" || receipt.ToLower() == "Y")
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("Your Total Order:");
-                        Console.WriteLine();
-
-                        for (int index = 0; index < orderedProducts.Count; index++)
-                        {
-                            Console.WriteLine("*********************************************");
-                            Console.WriteLine($"Product: {orderedProducts[index].Name}");
-                            Console.WriteLine($"Price: ${orderedProducts[index].Price, -10} Quantity: {quantities[index], -5} Total: ${quantities[index] * orderedProducts[index].Price}");
-                            Console.WriteLine();
-                        }
-
-                        Console.WriteLine("*********************************************");
-                        Console.WriteLine();
-                        Console.WriteLine($"Subtotal: ${subTotal}");
-                        Console.WriteLine($"Grand Total: ${grandTotal}");
-                        Console.WriteLine($"Payment type: {paymentType}");
-                        Console.WriteLine($"Amount paid: ${cashReceived}");
-                        Console.WriteLine($"Amount owed: ${grandTotal}");
-                        Console.WriteLine();
+                        DisplayReceipt(orderedProducts, quantities, subTotal, grandTotal, paymentType, cashReceived);
 
                         Console.Write("Would you like to confirm your purchase? (y/n):");
                         string confirm = Validator.TestValidity();
@@ -127,182 +98,24 @@ namespace FreshFarms
                             repeat = false;
                         }
                     }
-                    else
+                    else if (receipt == "n" || receipt.ToLower() == "N")
                     {
-                        Console.Write("Would you like to start over? (y/n):");
-                        string startOver = Validator.TestValidity();
-
-                        if (startOver == "y" || startOver.ToLower() == "Y")
-                        {
-                            subTotal = 0;
-                            grandTotal = 0;
-                            orderedProducts.Clear();
-                            repeat = true;
-                            repeatThree = false;
-                            repeatTwo = true;
-
-                        }
-                        else if (startOver == "n" || startOver.ToLower() == "N")
-                        {
-                            Console.WriteLine("Come back soon.");
-                            repeatTwo = false;
-                            repeatThree = false;
-                            repeat = false;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Come back soon.");
-
-                            repeatTwo = false;
-                            repeat = false;
-                        }
+                        repeat = DisplayEmptyCart(subTotal, grandTotal, orderedProducts);
+                        repeatThree = false;
                     }
                 }
-            }
-
-        }
-        #endregion
-
-        #region TextFile
-        public static void GetCurrentInventory()
-        {
-            StreamReader sr = new StreamReader(@"C:..\..\..\Product.txt");
-            List<string> tempList = new List<string>();
-            //List<Product> productList = new List<Product>();
-
-            string line = "";
-
-
-            while (line != null)
-            {
-
-                line = sr.ReadLine();
-                if (line != null)
-                {
-                    tempList.Add(line);
-                    //productList.Add(line);
+                    }
                 }
-            }
-
-            sr.Close();
-        }
-
-        public static void ProductToFile(List<Product> productList)
-        {
-
-            // create a writer and open the file
-            TextWriter tw = new StreamWriter(@"C:..\..\..\Product.txt");
-
-            tw.WriteLine($"\n{"#",-3} {"Name",-15} {"Category",-15} {"Description",-90} {"Price",-70}\n");
-            for (int i = 0; i < productList.Count; i++)
-            {
-
-                tw.WriteLine($"{i + 1,-3} {productList[i].Name,-15} {productList[i].Category,-15} {productList[i].Description,-90} ${productList[i].Price,-70}");
-            }
-
-            tw.Close();
-        }
 
         #endregion
 
         #region Methods
-        public static string GetPaymentType(string selection)
+
+        public static void DisplayGreet()
         {
-            if (selection == "1")
-            {
-                return "Cash";
-            }
-            else if (selection == "2")
-            {
-                return "Check";
-            }
-            else if (selection == "3")
-            {
-                return "Card";
-            }
-            else
-            {
-                return "Invalid Payment Type";
-            }
+            Console.WriteLine($"{"Welcome to the Fresh Farms grocery store!",+75}");
         }
-        public static void AddProduct(List<Product> productList)
-        {
-            bool endProgram = true;
-            while (endProgram)
-            {
-                //create new streamwriter object
-                // StreamWriter sw = new StreamWriter(@"C:..\..\..\Product.txt");
-                StreamWriter sw = File.AppendText(@"C:..\..\..\Product.txt");
-
-                Console.WriteLine("Do you want to add a new item to the list? (y) or (n)");
-                string userChoice = Console.ReadLine().ToLower();
-                if (string.IsNullOrEmpty(userChoice))
-                {
-                    Console.WriteLine("Please enter y or n");
-                }
-                else if (Regex.IsMatch(userChoice.ToLower(), @"(y)|(yes)"))
-                {
-                    Console.WriteLine("Enter Product Name:");
-                    string Name = Validator.TestValidity();
-
-                    Console.WriteLine("Enter Category:");
-                    string Category = Validator.TestValidity();
-
-                    Console.WriteLine("Enter Description:");
-                    string Description = Validator.TestValidity();
-
-                    Console.WriteLine("Enter Price:");
-                    double Price = Validator.ValidateDouble();
-
-                    productList.Add(new Product(Name, Category, Description, Price));
-                    int countNum = 1;
-                    foreach (Product c in productList)
-                    {
-                        // sw.Write(Name + Environment.NewLine);
-                        //sw.Write($"{countNum,-3} {c.Name,-15} {c.Category,-15} {c.Description,-70} ${c.Price,-70}");
-                        sw.WriteLine($"{countNum,-3} {c.Name,-15} {c.Category,-15} {c.Description,-70} ${c.Price,-70}");
-                        //sw.Write($"{countNum,-3} {c.Name,-15} {c.Category,-15} {c.Description,-70} ${c.Price,-70}");
-                        Console.WriteLine($"{countNum,-3} {c.Name,-15} {c.Category,-15} {c.Description,-70} ${c.Price,-70}");
-                        countNum++;
-                    }
-                }
-                else if (Regex.IsMatch(userChoice.ToLower(), @"(n)|(no)"))
-                {
-                    endProgram = false;
-                }
-                else
-                {
-                    Console.WriteLine("Please enter a yes or no");
-                }
-                sw.Close();
-            }
-
-        }
-        #endregion
-
-        public static void DisplayTotals(List<Product> orderedProducts, List<int> quantities, double subTotal, double salesTax, double grandTotal)
-        {
-            //int quantities = 0;
-            Console.WriteLine("Order Summary:");
-
-            Console.WriteLine("*************************************************");
-
-            subTotal = Math.Round(CalculatePayment.GetSubTotal(orderedProducts, quantities), 2);
-
-            Console.WriteLine($"The SubTotal of all ordered items is: {subTotal.ToString("C", CultureInfo.CurrentCulture)}");
-
-            salesTax = CalculatePayment.GetSalesTax(subTotal);
-
-            Console.WriteLine($"The sales tax is: {salesTax.ToString("C", CultureInfo.CurrentCulture)}");
-
-            grandTotal = CalculatePayment.GetGrandTotal(subTotal, salesTax);
-
-            Console.WriteLine($"The grand total is: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
-
-            
-            
-        }
-        public static List<Product> DisplayInventory()
+        public static List<Product> GroceryList()
         {
             List<Product> productList = new List<Product>()
             {
@@ -326,33 +139,116 @@ namespace FreshFarms
             productList.Sort((a, b) => a.Name.CompareTo(b.Name));
             return productList;
         }
+        public static string GetPaymentType(string selection)
+        {
+            if (selection == "1")
+            {
+                return "Cash";
+            }
+            else if (selection == "2")
+            {
+                return "Check";
+            }
+            else if (selection == "3")
+            {
+                return "Card";
+            }
+            else
+            {
+                return "Invalid Payment Type";
+            }
+        }
+
+        public static bool DisplayEmptyCart(double subTotal, double grandTotal, List<Product> orderedProducts)
+        {
+            Console.Write("Would you like to empty your cart and start over? (y/n):");
+            string startOver = Validator.ValidateString();
+            bool repeat = true;
+            while (repeat)
+            {
+                if (startOver == "y" || startOver.ToLower() == "Y")
+                {
+                    subTotal = 0;
+                    grandTotal = 0;
+                    orderedProducts.Clear();
+                    repeat = true;
+                    return true;
+                }
+                else if (startOver == "n" || startOver.ToLower() == "N")
+                {
+                    Console.WriteLine("Come back soon.");
+                    repeat = false;
+                    return false;
+                }
+            }
+            return repeat;
+        }
+
+        #region DisplayCalculations
+        public static void DisplayTotals(double subTotal, List<Product> orderedProducts, List<int> quantities, double salesTax, double grandTotal)
+        {
+            Console.WriteLine("Order Summary:");
+
+            Console.WriteLine("*************************************************");
+
+            subTotal = Math.Round(Calculations.GetSubTotal(orderedProducts, quantities), 2);
+
+            Console.WriteLine($"The SubTotal of all ordered items is: {subTotal.ToString("C", CultureInfo.CurrentCulture)}");
+
+            salesTax = Calculations.GetSalesTax(subTotal);
+
+            Console.WriteLine($"The sales tax is: {salesTax.ToString("C", CultureInfo.CurrentCulture)}");
+
+            grandTotal = Calculations.GetGrandTotal(subTotal, salesTax);
+
+            Console.WriteLine($"The grand total is: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
+        }
+        public static double DisplayGrandTotal(double subTotal, double salesTax)
+        {
+            double grandTotal = Calculations.GetGrandTotal(subTotal, salesTax);
+            Console.WriteLine($"The grand total is: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
+            return grandTotal;
+        }
+        public static double DisplaySubTotal(List<Product> orderedProducts, List<int> quantities)
+        {
+            double subTotal = Math.Round(Calculations.GetSubTotal(orderedProducts, quantities), 2);
+            Console.WriteLine($"The SubTotal of all ordered items is: {subTotal.ToString("C", CultureInfo.CurrentCulture)}");
+            return subTotal;
+        }
+
+        public static double DisplaySalesTax(double subTotal)
+        {
+            double salesTax = Calculations.GetSalesTax(subTotal);
+
+            Console.WriteLine($"The sales tax is: {salesTax.ToString("C", CultureInfo.CurrentCulture)}");
+            return salesTax;
+        }
+
+        public static void DisplayReceipt(List<Product> orderedProducts, List<int> quantities, double subTotal, double grandTotal, string paymentType, double cashReceived)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Your Total Order:");
+            Console.WriteLine();
+
+            for (int index = 0; index < orderedProducts.Count; index++)
+            {
+                Console.WriteLine("*********************************************");
+                Console.WriteLine($"Product: {orderedProducts[index].Name}");
+                Console.WriteLine($"Price: ${orderedProducts[index].Price,-10} Quantity: {quantities[index],-5} Total: ${quantities[index] * orderedProducts[index].Price}");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("*********************************************");
+            Console.WriteLine();
+            Console.WriteLine($"Subtotal: ${subTotal}");
+            Console.WriteLine($"Grand Total: ${grandTotal}");
+            Console.WriteLine($"Payment type: {paymentType}");
+            Console.WriteLine($"Amount paid: ${cashReceived}");
+            Console.WriteLine($"Amount owed: ${grandTotal}");
+            Console.WriteLine();
+        }
+        #endregion
+        #endregion
     }
 }
 
-//Calling method from Product class to send to text file
-// ProductPOS newProduct = new ProductPOS();
-//ProductToFile(productList);
-
-
-
-//Checking for ordered products to ensure the products selected have been saved
-//int itemTwo = 0;
-//foreach (Product b in orderedProducts)
-//{
-//    Console.WriteLine($"Product: {b.Name}");
-//    Console.WriteLine($"Price: ${b.Price}");
-//    itemTwo++;
-//}
-//Console.WriteLine();
-
-
-//COMMENTED OUT FOR TESTING
-//CalculatePayment payment = new CalculatePayment();
-//CalculatePayment.DisplayMenu();
-
-//Placeholder double received to store return of PaymentOptions
-//double received = PaymentValidation.PaymentOptions();
-
-
-//COmmented out for now
-//ProductPOS.AddProduct(productList);

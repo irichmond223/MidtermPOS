@@ -22,6 +22,46 @@ namespace FreshFarms
         #endregion
 
         #region Methods
+        public static void GetProductSelection(List<Product> productList, List<Product> orderedProducts)
+        {
+            //Asks user to select a product by number
+            Console.Write("Which product would you like to purchase? Select by typing a number: ");
+            string stringUserInput = Console.ReadLine();
+
+            int intUserInput = Validator.ValidateIndex(stringUserInput, productList);
+            orderedProducts.Add(productList[intUserInput]);
+        }
+        public static void DisplayInventory(List<Product> productList)
+        {
+            //Creates and displays Column Headers
+            Console.WriteLine($"\n{"#",-3} {"Name",-15} {"Category",-15} {"Description",-90} {"Price",-90}\n");
+
+            //Iterate through List to show what is in stock
+            int countNum = 0;
+            foreach (Product inventory in productList)
+            {
+                Console.WriteLine($"{countNum + 1,-3} {inventory.Name,-15} {inventory.Category,-15} {inventory.Description,-90} ${inventory.Price,-90}");
+                countNum++;
+            }
+        }
+        public static void DisplayProductSelection(List<Product> orderedProducts, List<int> quantities)
+        {
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Your Cart:");
+            Console.WriteLine();
+
+            for (int index = 0; index < orderedProducts.Count; index++)
+            {
+                Console.WriteLine($"Product: {orderedProducts[index].Name}");
+                Console.WriteLine($"Product Information: {orderedProducts[index].Description}");
+                Console.WriteLine($"Price: ${orderedProducts[index].Price}");
+                Console.WriteLine($"Quantity: {quantities[index]}");
+                Console.WriteLine($"Total: ${quantities[index] * orderedProducts[index].Price}");
+                Console.WriteLine();
+            }
+        }
         public static bool AddAnotherOrder()
         {
             bool repeat = true;
@@ -47,58 +87,8 @@ namespace FreshFarms
                 {
                     Console.WriteLine("Please enter a yes or no");
                 }
-
             }
             return repeat;
-        }
-
-        public static void GroceryList(List<Product> productList)
-        {
-            //Columns Headers
-
-            Console.WriteLine($"\n{"#",-3} {"Name",-15} {"Category",-15} {"Description",-90} {"Price",-90}\n");
-
-            //Iterate through List to show what is in stock
-            int countNum = 0;
-            foreach (Product inventory in productList)
-            {
-
-                //byCategory.Add(c);
-
-                Console.WriteLine($"{countNum + 1,-3} {inventory.Name,-15} {inventory.Category,-15} {inventory.Description,-90} ${inventory.Price,-90}");
-                countNum++;
-            }
-        }
-
-        public static void ProductSelection(List<Product> productList, List<Product> orderedProducts)
-        {
-            //Asks user to select a product by number
-            Console.Write("Which product would you like to purchase? Select by typing a number: ");
-            string stringUserInput = Console.ReadLine();
-
-            int intUserInput = Validator.ValidateIndex(stringUserInput, productList);
-            orderedProducts.Add(productList[intUserInput]);
-        }
-
-        public static void CartDisplay(List<Product> orderedProducts, List<int> quantities)
-        {
-<<<<<<< HEAD
-            StreamWriter sw = File.AppendText(@"C:\Users\ilona\source\repos\C#\Midterm\MidtermPOS\FreshFarms\Cart.txt");
-=======
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("Your Cart:");
-            Console.WriteLine();
->>>>>>> 7df2a90749266c55f4412a8e0b4ad380e8f6e386
-            for (int index = 0; index < orderedProducts.Count; index++)
-            {
-                Console.WriteLine($"Product: {orderedProducts[index].Name}");
-                Console.WriteLine($"Product Information: {orderedProducts[index].Description}");
-                Console.WriteLine($"Price: ${orderedProducts[index].Price}");
-                Console.WriteLine($"Quantity: {quantities[index]}");
-                Console.WriteLine($"Total: ${quantities[index] * orderedProducts[index].Price}");
-                Console.WriteLine();
-            }
         }
         #endregion
     }

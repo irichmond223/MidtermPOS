@@ -11,7 +11,7 @@ namespace FreshFarms
         static void Main(string[] args)
         {
 
-            ProductPOS.DisplayMenu();
+            ProductPOS.DisplayMain();
         }
 
     }

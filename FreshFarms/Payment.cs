@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace FreshFarms
 {
-    class PaymentValidation
+    class Payment
     {
         #region Methods
         //takes in the total payment
