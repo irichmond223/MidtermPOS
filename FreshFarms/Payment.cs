@@ -1,5 +1,6 @@
 ﻿ using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -32,9 +33,9 @@ namespace FreshFarms
 
             change = Math.Round(received - totalCost, 2);
             Console.WriteLine();
-            Console.WriteLine($"Amount owed: ${totalCost}");
-            Console.WriteLine($"Amount paid: ${received}");
-            Console.WriteLine($"Change: ${change}");
+            Console.WriteLine($"Amount owed: {totalCost.ToString("C", CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Amount paid: {received.ToString("C", CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Change: {change.ToString("C", CultureInfo.CurrentCulture)}");
             Console.WriteLine();
 
             return received;
@@ -81,9 +82,9 @@ namespace FreshFarms
             change = Math.Round(received - totalCost, 2);
 
             Console.WriteLine();
-            Console.WriteLine($"Amount owed: ${totalCost}");
-            Console.WriteLine($"Amount paid: ${received}");
-            Console.WriteLine($"Change: ${change}");
+            Console.WriteLine($"Amount owed: {totalCost.ToString("C", CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Amount paid: {received.ToString("C", CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Change: {change.ToString("C", CultureInfo.CurrentCulture)}");
             Console.WriteLine();
 
             return received;
@@ -138,9 +139,9 @@ namespace FreshFarms
             received = Math.Round(totalCost + cashBack, 2);
 
             Console.WriteLine();
-            Console.WriteLine($"Amount owed: ${totalCost}");
-            Console.WriteLine($"Cash back: ${cashBack}");
-            Console.WriteLine($"Amount paid: ${received}");
+            Console.WriteLine($"Amount owed: {totalCost.ToString("C", CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Cash back: {cashBack.ToString("C", CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Amount paid: {received.ToString("C", CultureInfo.CurrentCulture)}");
             Console.WriteLine();
 
             return received;
