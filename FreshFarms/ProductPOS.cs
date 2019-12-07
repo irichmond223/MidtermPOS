@@ -239,11 +239,11 @@ namespace FreshFarms
 
             Console.WriteLine("*********************************************");
             Console.WriteLine();
-            Console.WriteLine($"Subtotal: ${subTotal}");
-            Console.WriteLine($"Grand Total: ${grandTotal}");
+            Console.WriteLine($"Subtotal: {subTotal.ToString("C", CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Grand Total: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
             Console.WriteLine($"Payment type: {paymentType}");
-            Console.WriteLine($"Amount paid: ${cashReceived}");
-            Console.WriteLine($"Amount owed: ${grandTotal}");
+            Console.WriteLine($"Amount paid: {cashReceived.ToString("C", CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Amount owed: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
             Console.WriteLine();
             Console.WriteLine("Your order has been placed. Thank you for your purchase!");
         }

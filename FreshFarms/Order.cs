@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -40,7 +41,7 @@ namespace FreshFarms
             int countNum = 0;
             foreach (Product inventory in productList)
             {
-                Console.WriteLine($"{countNum + 1,-3} {inventory.Name,-15} {inventory.Category,-15} {inventory.Description,-90} ${inventory.Price,-90}");
+                Console.WriteLine($"{countNum + 1,-3} {inventory.Name,-15} {inventory.Category,-15} {inventory.Description,-90} ${inventory.Price.ToString("C", CultureInfo.CurrentCulture),-90}");
                 countNum++;
             }
         }
@@ -56,9 +57,9 @@ namespace FreshFarms
             {
                 Console.WriteLine($"Product: {orderedProducts[index].Name}");
                 Console.WriteLine($"Product Information: {orderedProducts[index].Description}");
-                Console.WriteLine($"Price: ${orderedProducts[index].Price}");
+                Console.WriteLine($"Price: ${orderedProducts[index].Price.ToString("C", CultureInfo.CurrentCulture)}");
                 Console.WriteLine($"Quantity: {quantities[index]}");
-                Console.WriteLine($"Total: ${quantities[index] * orderedProducts[index].Price}");
+                Console.WriteLine($"Total: ${(quantities[index] * orderedProducts[index].Price).ToString("C", CultureInfo.CurrentCulture)}");
                 Console.WriteLine();
             }
         }
@@ -68,7 +69,7 @@ namespace FreshFarms
             Console.Write("Do you wish to add another item to your order? (y/n): ");
             while (repeat)
             {
-                string reply = Console.ReadLine().ToLower();
+                string reply = Validator.ValidateString().ToLower();
                 if (string.IsNullOrEmpty(reply))
                 {
                     Console.WriteLine("Please enter y or n");

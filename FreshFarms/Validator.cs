@@ -32,9 +32,22 @@ namespace FreshFarms
                     input = Console.ReadLine();
                     again = true;
                 }
+                catch (OverflowException ex)
+                {
+                    Console.WriteLine($"Please enter a number between 1 and {listInput.Count}!");
+                    input = Console.ReadLine();
+                    again = true;
+                }
                 catch (ArgumentNullException ex)
                 {
                     Console.WriteLine("Please enter a number");
+                    input = Console.ReadLine();
+                    again = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Sorry, something went wrong. Please enter a number.");
                     input = Console.ReadLine();
                     again = true;
                 }
@@ -83,8 +96,15 @@ namespace FreshFarms
                     input = Console.ReadLine();
                     repeat = true;
                 }
+                catch (OverflowException ex)
+                {
+                    Console.WriteLine($"Quantity must be between 1 and 50.");
+                    input = Console.ReadLine();
+                    repeat = true;
+                }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     Console.WriteLine("Sorry, something went wrong. Please enter a quantity.");
                     input = Console.ReadLine();
                     repeat = true;
