@@ -230,9 +230,10 @@ namespace FreshFarms
 
             for (int index = 0; index < orderedProducts.Count; index++)
             {
+                double totalOrdered = quantities[index] * orderedProducts[index].Price; 
                 Console.WriteLine("*********************************************");
                 Console.WriteLine($"Product: {orderedProducts[index].Name}");
-                Console.WriteLine($"Price: ${orderedProducts[index].Price,-10} Quantity: {quantities[index],-5} Total: ${quantities[index] * orderedProducts[index].Price}");
+                Console.WriteLine($"Price: ${orderedProducts[index].Price,-10} Quantity: {quantities[index],-5} Total: {totalOrdered.ToString("C", CultureInfo.CurrentCulture)}");
                 Console.WriteLine();
             }
 
