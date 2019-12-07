@@ -25,7 +25,7 @@ namespace FreshFarms
         public static void GetProductSelection(List<Product> productList, List<Product> orderedProducts)
         {
             //Asks user to select a product by number
-            Console.Write("Which product would you like to purchase? Select by typing a number: ");
+            Console.Write("Which product would you like to purchase? (please enter in numerical format): ");
             string stringUserInput = Console.ReadLine();
 
             int intUserInput = Validator.ValidateIndex(stringUserInput, productList);
@@ -85,7 +85,7 @@ namespace FreshFarms
                 }
                 else
                 {
-                    Console.WriteLine("Please enter a yes or no");
+                    Console.WriteLine("Please enter y or n");
                 }
             }
             return repeat;

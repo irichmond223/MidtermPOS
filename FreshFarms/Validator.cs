@@ -7,24 +7,19 @@ namespace FreshFarms
     class Validator
     {
 
-        public static int ValidateNum(string input, List<Product> listInput)
+        public static int ValidateIndex(string input, List<Product> listInput)
         {
-
-
             int item = 0;
             bool again = true;
             string test = "";
             while (again)
             {
-
                 try
                 {
-
                     item = int.Parse(input) - 1;
                     test = listInput[item].Name;
                     again = false;
                 }
-
                 catch (FormatException ex)
                 {
                     Console.WriteLine("Please enter a number");
@@ -45,8 +40,8 @@ namespace FreshFarms
                 }
             }
             return item;
-
         }
+
         //method for Quantity, only allows an int 1-50
         public static int ValidateNum(string input)
         {
@@ -96,47 +91,6 @@ namespace FreshFarms
                 }
             }
             return inputToInt;
-        }
-
-        public static int ValidateIndex(string input, List<Product> listInput)
-        {
-
-
-            int item = 0;
-            bool again = true;
-            string test = "";
-            while (again)
-            {
-
-                try
-                {
-
-                    item = int.Parse(input) - 1;
-                    test = listInput[item].Name;
-                    again = false;
-                }
-
-                catch (FormatException ex)
-                {
-                    Console.WriteLine("Please enter a number");
-                    input = Console.ReadLine();
-                    again = true;
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    Console.WriteLine($"Please enter a number between 1 and {listInput.Count}!");
-                    input = Console.ReadLine();
-                    again = true;
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Console.WriteLine("Please enter a number");
-                    input = Console.ReadLine();
-                    again = true;
-                }
-            }
-            return item;
-
         }
 
         public static double ValidateDouble()
@@ -202,7 +156,7 @@ namespace FreshFarms
             return validString;
         }
 
-        public static string TestValidity()
+        public static string TestStringValidity()
 
         {
             string stringUserInput = "";
@@ -218,7 +172,7 @@ namespace FreshFarms
                         Console.WriteLine("Empty input, please try again.");
                     }
                 }
-                catch (FormatException) //Used when the user typed in in a wrong format
+                catch (FormatException) 
                 {
                     Console.WriteLine("Please use the correct format. Please try again.");
                 }

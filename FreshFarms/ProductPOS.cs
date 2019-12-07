@@ -12,7 +12,7 @@ namespace FreshFarms
         #region DisplayMain
         public static void DisplayMain()
         {
-            //Greets user
+            //Greets the user
             DisplayGreet();
 
             //Holds Main list
@@ -24,18 +24,18 @@ namespace FreshFarms
             //Holds the inputed item quantities
             List<int> quantities = new List<int>();
 
-            bool repeat = true, repeatTwo = true, repeatThree = true;
+            bool repeat = true, repeatTwo = true, repeatThree = true, mainRepeat = true;
 
-            while (repeat)
+            while (mainRepeat)
             {
-                while (repeatTwo)
+                do
                 {
                     //Holds inventory
                     productList = GroceryList();
 
                     //Creates headers and displays inventory 
                     Order.DisplayInventory(productList);
-                    
+
                     Console.WriteLine();
 
                     //Writes to the Product.txt
@@ -56,9 +56,10 @@ namespace FreshFarms
 
                     Console.WriteLine();
                     //Asks user if they would like to select another product to purchase
-                    repeatTwo = Order.AddAnotherOrder();
+                    repeat = Order.AddAnotherOrder();
                 }
-                while (repeatThree)
+                while (repeat);
+                do
                 {
                     Console.WriteLine();
                     Console.WriteLine();
@@ -78,34 +79,47 @@ namespace FreshFarms
                     double cashReceived = Payment.ProcessPayment(grandTotal, paymentSelection);
                     string paymentType = GetPaymentType(paymentSelection);
 
-                    Console.Write("Would you like to review your purchase? (y/n): ");
-                    string receipt = Validator.TestValidity();
+                    Console.Write("Would you like to review your order? (y/n): ");
+                    string receipt = Validator.TestStringValidity();
                     Console.WriteLine();
 
                     if (receipt == "y" || receipt.ToLower() == "Y")
                     {
                         DisplayReceipt(orderedProducts, quantities, subTotal, grandTotal, paymentType, cashReceived);
-
-                        Console.Write("Would you like to confirm your purchase? (y/n):");
-                        string confirm = Validator.TestValidity();
-
-                        if (confirm == "y" || confirm.ToLower() == "Y")
-                        {
-                            Console.WriteLine();
-                            Console.WriteLine("Your order has been placed. Thank you for your purchase!");
-                            repeatTwo = false;
-                            repeatThree = false;
-                            repeat = false;
-                        }
-                    }
-                    else if (receipt == "n" || receipt.ToLower() == "N")
-                    {
-                        repeat = DisplayEmptyCart(subTotal, grandTotal, orderedProducts);
+                        repeatTwo = false;
                         repeatThree = false;
+                        mainRepeat = false;
+                    }
+                    else
+                    {
+                        repeatTwo = false;
+                    }
+                } while (repeatTwo);
+                while (repeatThree)
+                {
+                    //Displays options for selecting a new order or exiting the program
+                    DisplayOptions();
+
+                    int decision = Validator.ValidateInt();
+
+                    if (decision == 1)
+                    {
+                        //Clears the previous selections and starts a new order
+                        orderedProducts.Clear();
+                        repeatThree = false;
+                        mainRepeat = true;
+                    }
+                    else if (decision == 2)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Come back soon!");
+                        repeatThree = false;
+                        mainRepeat = false;
                     }
                 }
-                    }
-                }
+            }
+        }
+
 
         #endregion
 
@@ -159,29 +173,14 @@ namespace FreshFarms
             }
         }
 
-        public static bool DisplayEmptyCart(double subTotal, double grandTotal, List<Product> orderedProducts)
+        public static void DisplayOptions()
         {
-            Console.Write("Would you like to empty your cart and start over? (y/n):");
-            string startOver = Validator.ValidateString();
-            bool repeat = true;
-            while (repeat)
-            {
-                if (startOver == "y" || startOver.ToLower() == "Y")
-                {
-                    subTotal = 0;
-                    grandTotal = 0;
-                    orderedProducts.Clear();
-                    repeat = true;
-                    return true;
-                }
-                else if (startOver == "n" || startOver.ToLower() == "N")
-                {
-                    Console.WriteLine("Come back soon.");
-                    repeat = false;
-                    return false;
-                }
-            }
-            return repeat;
+            Console.WriteLine("Choose from the options below:");
+            Console.WriteLine();
+            Console.WriteLine("1. Would you like to start a new order?");
+            Console.WriteLine("2. Would you like to exit the program?");
+            Console.WriteLine();
+            Console.Write("Please enter your selection:");
         }
 
         #region DisplayCalculations
@@ -246,6 +245,7 @@ namespace FreshFarms
             Console.WriteLine($"Amount paid: ${cashReceived}");
             Console.WriteLine($"Amount owed: ${grandTotal}");
             Console.WriteLine();
+            Console.WriteLine("Your order has been placed. Thank you for your purchase!");
         }
         #endregion
         #endregion
