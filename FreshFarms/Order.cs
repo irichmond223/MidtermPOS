@@ -65,7 +65,7 @@ namespace FreshFarms
         public static bool AddAnotherOrder()
         {
             bool repeat = true;
-            Console.Write("Do you wish to add another item to your order? (y/n): ");
+            Console.Write("Do you wish to add another product to your order? (y/n): ");
             while (repeat)
             {
                 string reply = Console.ReadLine().ToLower();

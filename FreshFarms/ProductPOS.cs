@@ -37,13 +37,6 @@ namespace FreshFarms
                     Order.DisplayInventory(productList);
 
                     Console.WriteLine();
-
-                    //Writes to the Product.txt
-                    TextFile.WritesTextFile(productList);
-
-                    //Reads from the Product.txt
-                    TextFile.ReadsTextFile();
-
                     //Asks for a user to select a product to purchase
                     Order.GetProductSelection(productList, orderedProducts);
 
@@ -57,6 +50,12 @@ namespace FreshFarms
                     Console.WriteLine();
                     //Asks user if they would like to select another product to purchase
                     repeat = Order.AddAnotherOrder();
+
+                    //Writes to the Inventory.txt
+                    TextFile.WritesTextFile(productList);
+
+                    //Reads from the Inventory.txt
+                    TextFile.ReadsTextFile();
                 }
                 while (repeat);
                 do
@@ -79,7 +78,7 @@ namespace FreshFarms
                     double cashReceived = Payment.ProcessPayment(grandTotal, paymentSelection);
                     string paymentType = GetPaymentType(paymentSelection);
 
-                    Console.Write("Would you like to review your order? (y/n): ");
+                    Console.Write("Would you like to confirm your order? (y/n): ");
                     string receipt = Validator.TestStringValidity();
                     Console.WriteLine();
 
@@ -133,21 +132,21 @@ namespace FreshFarms
         {
             List<Product> productList = new List<Product>()
             {
-                {new Product("Potatoes", "Produce", "1lb, Russels", 0.79) },
-                {new Product("Onions", "Produce", "1lb, White", 0.99) },
-                {new Product("Cabbage", "Produce", "1lb Green", 2.07) },
-                {new Product("Tomato", "Produce", "1lb Roma", 0.29) },
-                {new Product("Cucumber", "Produce", "1ct Fresh", 0.54) },
-                {new Product("Turkey", "Meat", "1lb It's natural ground turkey 93% lean.", 4.49) },
+                {new Product("Potatoes", "Produce", "1lb potatoes are best when sliced, baked, and served with your favorite toppings.", 0.41) },
+                {new Product("Onions", "Produce", "1lb versatile onions can add an extra layer of flavor to your favorite dishes.", 1.09) },
+                {new Product("Cabbage", "Produce", "1lb a great compliment to fish tacos! The large leaves can also be used for cabbage rolls.", 2.07) },
+                {new Product("Tomato", "Produce", "1lb tomatoes add amazing depth to a variety of dishes with ease.", 0.29) },
+                {new Product("Cucumber", "Produce", "1ct deliciously crunchy cucumbers bring a twinkle to the eye of anyone who beholds them.", 0.54) },
+                {new Product("Turkey", "Meat", "1lb all-natural with only 8 grams of fat per serving and no gluten.", 4.49) },
                 {new Product("Chicken", "Meat", "1lb It's fresh 100% natural boneless and skinless chicken breast.", 7.05) },
                 {new Product("Bacon", "Meat", "16oz slow smoked and hand-trimmed from the finest cuts of pork.", 7.05) },
-                {new Product("Sausage", "Meat", "14oz Handcrafted with natural spices and only the finest cuts of meat.", 2.53) },
-                {new Product("Pork", "Meat", "1lb Boneless Loin Chops, 3 chops per pack.", 6.14) },
-                {new Product("Yogurt", "Dairy", "5oz tarts with simple, all natural, non-GMO ingredients.", 1.49) },
-                {new Product("Cream Cheese", "Dairy", "8oz Cream Cheese always starts with fresh milk and real cream.", 1.67) },
-                {new Product("Milk", "Dairy", "1/2 gal Enjoy organic 2% reduced fat milk.", 2.99) },
+                {new Product("Sausage", "Meat", "14oz handcrafted with natural spices and only the finest cuts of meat.", 2.53) },
+                {new Product("Pork", "Meat", "1lb our pork chops are full of savory meat that falls off the bone as you eat.", 6.14) },
+                {new Product("Yogurt", "Dairy", "5oz each spoonful is a smooth and creamy escape from ordinary.", 1.49) },
+                {new Product("Cream Cheese", "Dairy", "8oz cream Cheese always starts with fresh milk and real cream.", 1.67) },
+                {new Product("Milk", "Dairy", "1/2 gal organic milk contains no antibiotics, synthetic hormones or GMOs.", 2.99) },
                 {new Product("Coffee Creamer", "Dairy", "28 fl oz creamer with the rich flavors of cinnamon streusel.", 4.99) },
-                {new Product("Cheese Slices", "Dairy", "8oz Delicious natural cheeses blended together to create a whole new flavor experience.", 3.99) },
+                {new Product("Cheese Slices", "Dairy", "8oz delicious natural cheeses blended together to create a whole new flavor experience.", 3.99) },
 
             };
             productList.Sort((a, b) => a.Name.CompareTo(b.Name));
