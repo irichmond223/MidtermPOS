@@ -51,10 +51,10 @@ namespace FreshFarms
                     //Asks user if they would like to select another product to purchase
                     repeat = Order.AddAnotherOrder();
 
-                    //Writes to the Inventory.txt
+                    //Writes text to the Inventory.txt
                     TextFile.WritesTextFile(productList);
 
-                    //Reads from the Inventory.txt
+                    //Reads text from the Inventory.txt
                     TextFile.ReadsTextFile();
                 }
                 while (repeat);

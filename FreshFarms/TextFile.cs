@@ -40,8 +40,9 @@ namespace FreshFarms
             {
 
                 tw.WriteLine($"{i + 1,-3} {productList[i].Name,-15} {productList[i].Category,-15} {productList[i].Description,-90} ${productList[i].Price,-70}");
-            }
 
+            }
+            tw.WriteLine();
             tw.Close();
         }
     }

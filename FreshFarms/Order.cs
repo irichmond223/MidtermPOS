@@ -41,9 +41,10 @@ namespace FreshFarms
             int countNum = 0;
             foreach (Product inventory in productList)
             {
-                Console.WriteLine($"{countNum + 1,-3} {inventory.Name,-15} {inventory.Category,-15} {inventory.Description,-90} ${inventory.Price.ToString("C", CultureInfo.CurrentCulture),-90}");
+                Console.WriteLine($"{countNum + 1,-3} {inventory.Name,-15} {inventory.Category,-15} {inventory.Description,-90} {inventory.Price.ToString("C", CultureInfo.CurrentCulture),-90}");
                 countNum++;
             }
+            
         }
         public static void DisplayProductSelection(List<Product> orderedProducts, List<int> quantities)
         {
@@ -55,12 +56,17 @@ namespace FreshFarms
 
             for (int index = 0; index < orderedProducts.Count; index++)
             {
+                double totalDollars = (quantities[index] * orderedProducts[index].Price);
                 Console.WriteLine($"Product: {orderedProducts[index].Name}");
                 Console.WriteLine($"Product Information: {orderedProducts[index].Description}");
-                Console.WriteLine($"Price: ${orderedProducts[index].Price.ToString("C", CultureInfo.CurrentCulture)}");
+                Console.WriteLine($"Price: {orderedProducts[index].Price.ToString("C", CultureInfo.CurrentCulture)}");
                 Console.WriteLine($"Quantity: {quantities[index]}");
-                Console.WriteLine($"Total: ${(quantities[index] * orderedProducts[index].Price).ToString("C", CultureInfo.CurrentCulture)}");
+                Console.WriteLine($"Total: {totalDollars.ToString("C", CultureInfo.CurrentCulture)}");
                 Console.WriteLine();
+
+                string path = @"C:..\..\..\Inventory.txt";
+                //AppendAllText adds user selection to a file. 
+                File.AppendAllLines(path, new[] { $" Ordered Product: {orderedProducts[index].Name}, Price: {orderedProducts[index].Price.ToString("C", CultureInfo.CurrentCulture)}, Quantity: {quantities[index]}, Total: {totalDollars.ToString("C", CultureInfo.CurrentCulture)}" });
             }
         }
         public static bool AddAnotherOrder()
