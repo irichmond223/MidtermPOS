@@ -10,7 +10,6 @@ namespace FreshFarms
     class Order:Product
     {
         #region overloaded constructor
-        //At the end, display a receipt with all items ordered, subtotal, grand total, and appropriate payment info. 
 
         //this overloaded constructor is used when building objects from our CSV file
         public Order(string name, string category, string description, double price)//pass in the necessary values

@@ -6,7 +6,7 @@ namespace FreshFarms
 {
     class Validator
     {
-
+        #region Methods
         public static int ValidateIndex(string input, List<Product> listInput)
         {
             int item = 0;
@@ -209,6 +209,6 @@ namespace FreshFarms
 
             return stringUserInput;
         }
-
+        #endregion
     }
 }
