@@ -79,10 +79,17 @@ namespace FreshFarms
                     string paymentType = GetPaymentType(paymentSelection);
 
                     Console.Write("Would you like to confirm your order? (y/n): ");
-                    string receipt = Validator.TestStringValidity();
+                    string receipt = Validator.TestStringValidity().ToLower();
                     Console.WriteLine();
 
-                    if (receipt == "y" || receipt.ToLower() == "Y")
+                    while (receipt != "y" && receipt != "n")
+                    {
+                        Console.Write("Please enter either y or n: ");
+                        receipt = Validator.TestStringValidity().ToLower();
+                        Console.WriteLine();
+                    }
+
+                    if (receipt == "y")
                     {
                         DisplayReceipt(orderedProducts, quantities, subTotal, grandTotal, paymentType, cashReceived);
                         repeatTwo = false;
@@ -100,6 +107,12 @@ namespace FreshFarms
                     DisplayOptions();
 
                     int decision = Validator.ValidateInt();
+
+                    while (decision != 1 && decision != 2)
+                    {
+                        Console.Write("Please enter either 1 or 2: ");
+                        decision = Validator.ValidateInt();
+                    }
 
                     if (decision == 1)
                     {
@@ -179,7 +192,7 @@ namespace FreshFarms
             Console.WriteLine("1. Would you like to start a new order?");
             Console.WriteLine("2. Would you like to exit the program?");
             Console.WriteLine();
-            Console.Write("Please enter your selection:");
+            Console.Write("Please enter your selection: ");
         }
 
         #region DisplayCalculations
@@ -243,7 +256,7 @@ namespace FreshFarms
             Console.WriteLine($"Grand Total: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
             Console.WriteLine($"Payment type: {paymentType}");
             Console.WriteLine($"Amount paid: {cashReceived.ToString("C", CultureInfo.CurrentCulture)}");
-            Console.WriteLine($"Amount owed: {grandTotal.ToString("C", CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Amount owed: {(cashReceived - grandTotal).ToString("C", CultureInfo.CurrentCulture)}");
             Console.WriteLine();
             Console.WriteLine("Your order has been placed. Thank you for your purchase!");
         }

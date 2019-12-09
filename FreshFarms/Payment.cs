@@ -66,7 +66,7 @@ namespace FreshFarms
             Console.WriteLine();
 
             //9 digits, first digit only from 0-3
-            Console.Write("Please enter the routing number (9 digits): ");
+            Console.Write("Please enter the routing number (9 digits, first digit 0-3): ");
             RegexValidate(@"(^[0-3]{1}[0-9]{8}$)");
             Console.WriteLine();
 
@@ -104,10 +104,11 @@ namespace FreshFarms
             Console.WriteLine();
             Console.WriteLine("Please be aware that only Mastercard, Discover, and American Express are accepted at this time.");
             Console.WriteLine();
+            Console.WriteLine("*Mastercard: First digit 5, 16 digits long");
+            Console.WriteLine("*American Express: First digit 3, second digit 4 or 7, 15 digits long");
+            Console.WriteLine("*Discover: First digit 6, 16 digits long");
+            Console.WriteLine();
 
-            //Mastercard: first digit 5, 16 digits long
-            //American Express: first digit 3, second digit 4 or 7, 15 digits long
-            //Discover: first digit 6, 16 digits long
             Console.Write("Please enter the card number: ");
             RegexValidate(@"(^[5]{1}[0-9]{15}$|^[3]{1}[4,7]{1}[0-9]{13}$|^[6]{1}[0-9]{15}$)");
             Console.WriteLine();
@@ -115,12 +116,12 @@ namespace FreshFarms
             ValidateDate();
             Console.WriteLine();
 
-            Console.Write("Please enter your card's CVV: ");
+            Console.Write("Please enter your card's CVV (3-4 digits): ");
             RegexValidate(@"(^[0-9]{3,4}$)");
             Console.WriteLine();
 
             Console.Write("Cash back requested? (y/n): ");
-            cashBackSelect = Console.ReadLine().ToLower();
+            cashBackSelect = Validator.ValidateString().ToLower();
 
             while (cashBackSelect != "y" && cashBackSelect != "n")
             {
@@ -240,9 +241,10 @@ namespace FreshFarms
         public static void ValidateDate()
         {
             int month, year;
+            bool valid;
             DateTime today = DateTime.Today;
             DateTime compare = new DateTime(today.Year, today.Month, 1);
-            DateTime card;
+            DateTime card = DateTime.Now;
 
             Console.Write("What year does the card expire?: ");
             year = Validator.ValidateInt();
@@ -250,23 +252,29 @@ namespace FreshFarms
             Console.Write("What month does the card expire?: ");
             month = Validator.ValidateInt();
 
-            try
+            do
             {
-                card = new DateTime(year, month, 1);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine();
-                Console.WriteLine("The given date is not valid or the card has expired. Please give a valid date.");
+                valid = true;
 
-                Console.Write("What year does the card expire?: ");
-                year = Validator.ValidateInt();
+                try
+                {
+                    card = new DateTime(year, month, 1);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("The given date is not valid or the card has expired. Please give a valid date.");
 
-                Console.Write("What month does the card expire?: ");
-                month = Validator.ValidateInt();
+                    Console.Write("What year does the card expire?: ");
+                    year = Validator.ValidateInt();
 
-                card = new DateTime(year, month, 1);
-            }
+                    Console.Write("What month does the card expire?: ");
+                    month = Validator.ValidateInt();
+
+                    valid = false;
+                }
+            } while (!valid);
+            
 
 
             while (card < compare)
