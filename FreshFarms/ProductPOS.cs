@@ -114,7 +114,7 @@ namespace FreshFarms
                     if (decision == 1)
                     {
                         //Clears the previous selections and starts a new order
-                        orderedProducts.Clear();
+                        DisplayNewOrder(orderedProducts, quantities);
                         repeatThree = false;
                         mainRepeat = true;
                     }
@@ -192,6 +192,13 @@ namespace FreshFarms
             Console.Write("Please enter your selection: ");
         }
 
+        public static void DisplayNewOrder(List<Product> orderedProducts, List<int> quantities)
+        {
+            //subTotal = 0;
+            //grandTotal = 0;
+            int quantity = 0;
+            orderedProducts.Clear();
+        }
         #region DisplayCalculations
         public static void DisplayTotals(double subTotal, List<Product> orderedProducts, List<int> quantities, double salesTax, double grandTotal)
         {

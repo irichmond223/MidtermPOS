@@ -78,6 +78,13 @@ namespace FreshFarms
             while (repeat)
             {
                 string reply = Validator.ValidateString().ToLower();
+
+                while (reply != "y" && reply != "n")
+                {
+                    Console.Write("Please enter either y or n: ");
+                    reply = Validator.TestStringValidity().ToLower();
+                    Console.WriteLine();
+                }
                 if (string.IsNullOrEmpty(reply))
                 {
                     Console.WriteLine("Please enter y or n");
