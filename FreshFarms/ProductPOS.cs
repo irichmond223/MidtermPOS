@@ -95,7 +95,9 @@ namespace FreshFarms
                     }
                     else
                     {
+                        mainRepeat = false;
                         repeatTwo = false;
+                        repeatThree = true;
                     }
                 } while (repeatTwo);
                 while (repeatThree)
