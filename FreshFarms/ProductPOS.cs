@@ -12,8 +12,7 @@ namespace FreshFarms
         #region DisplayMain
         public static void DisplayMain()
         {
-            //Greets the user
-            DisplayGreet();
+            GreetsTheUser();
 
             //Holds Main list
             List<Product> productList = new List<Product>();
@@ -33,22 +32,21 @@ namespace FreshFarms
                     //Holds inventory
                     productList = GroceryList();
 
-                    //Creates headers and displays inventory 
                     Order.DisplayInventory(productList);
 
                     Console.WriteLine();
                     //Asks for a user to select a product to purchase
                     Order.GetProductSelection(productList, orderedProducts);
 
+                    Console.WriteLine();
                     //Adds user input to a quantities list
                     Console.Write("Please enter a quantity: ");
                     quantities.Add(Validator.ValidateNum(Console.ReadLine()));
 
-                    //Displays specific info for the user to see what has been selected so far
+                    //Displays specific info about each selection
                     Order.DisplayProductSelection(orderedProducts, quantities);
 
                     Console.WriteLine();
-                    //Asks user if they would like to select another product to purchase
                     repeat = Order.AddAnotherOrder();
 
                     //Writes text to the Inventory.txt
@@ -68,7 +66,6 @@ namespace FreshFarms
                     Console.WriteLine("*************************************************");
 
                     double subTotal = DisplaySubTotal(orderedProducts, quantities);
-
                     double salesTax = DisplaySalesTax(subTotal);
                     double grandTotal = DisplayGrandTotal(subTotal, salesTax);
                     Console.WriteLine("*************************************************");
@@ -137,7 +134,7 @@ namespace FreshFarms
 
         #region Methods
 
-        public static void DisplayGreet()
+        public static void GreetsTheUser()
         {
             Console.WriteLine($"{"Welcome to the Fresh Farms grocery store!",+75}");
         }
@@ -243,7 +240,7 @@ namespace FreshFarms
 
             for (int index = 0; index < orderedProducts.Count; index++)
             {
-                double totalOrdered = quantities[index] * orderedProducts[index].Price; 
+                double totalOrdered = quantities[index] * orderedProducts[index].Price;
                 Console.WriteLine("*********************************************");
                 Console.WriteLine($"Product: {orderedProducts[index].Name}");
                 Console.WriteLine($"Price: ${orderedProducts[index].Price,-10} Quantity: {quantities[index],-5} Total: {totalOrdered.ToString("C", CultureInfo.CurrentCulture)}");

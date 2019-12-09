@@ -31,6 +31,7 @@ namespace FreshFarms
             int intUserInput = Validator.ValidateIndex(stringUserInput, productList);
             orderedProducts.Add(productList[intUserInput]);
         }
+        //Creates headers and displays inventory 
         public static void DisplayInventory(List<Product> productList)
         {
             //Creates and displays Column Headers
@@ -43,7 +44,8 @@ namespace FreshFarms
                 Console.WriteLine($"{countNum + 1,-3} {inventory.Name,-15} {inventory.Category,-15} {inventory.Description,-90} {inventory.Price.ToString("C", CultureInfo.CurrentCulture),-90}");
                 countNum++;
             }
-            
+    
+
         }
         public static void DisplayProductSelection(List<Product> orderedProducts, List<int> quantities)
         {
@@ -68,6 +70,7 @@ namespace FreshFarms
                 File.AppendAllLines(path, new[] { $" Ordered Product: {orderedProducts[index].Name}, Price: {orderedProducts[index].Price.ToString("C", CultureInfo.CurrentCulture)}, Quantity: {quantities[index]}, Total: {totalDollars.ToString("C", CultureInfo.CurrentCulture)}" });
             }
         }
+        //Asks user if they would like to select another product to purchase
         public static bool AddAnotherOrder()
         {
             bool repeat = true;

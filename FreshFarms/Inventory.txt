@@ -17,5 +17,5 @@
 14  Turkey          Meat            1lb all-natural with only 8 grams of fat per serving and no gluten.                        $4.49                                                                  
 15  Yogurt          Dairy           5oz each spoonful is a smooth and creamy escape from ordinary.                             $1.49                                                                  
 
- Ordered Product: Sausage, Price: $2.53, Quantity: 2, Total: $5.06
- Ordered Product: Coffee Creamer, Price: $4.99, Quantity: 2, Total: $9.98
+ Ordered Product: Bacon, Price: $7.05, Quantity: 1, Total: $7.05
+ Ordered Product: Chicken, Price: $7.05, Quantity: 4, Total: $28.20
