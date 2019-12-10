@@ -198,7 +198,7 @@ namespace FreshFarms
         {
             //subTotal = 0;
             //grandTotal = 0;
-            int quantity = 0;
+            quantities.Clear();
             orderedProducts.Clear();
         }
         #region DisplayCalculations
